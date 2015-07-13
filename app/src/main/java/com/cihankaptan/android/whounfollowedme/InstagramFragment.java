@@ -3,6 +3,7 @@ package com.cihankaptan.android.whounfollowedme;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.app.FragmentManager;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.util.Log;
@@ -32,11 +33,13 @@ import retrofit.client.Response;
  */
 public class InstagramFragment extends Fragment {
 
+    public static final String FOLLOWEDBY_LIST = "FOLLOWEDBY_LIST";
+    public static final String FOLLOWS_LIST = "FOLLOWS_LIST";
     private View view;
     private final String TAG = InstagramFragment.class.getSimpleName();
     private ProgressDialog progressDialog;
     private InstagramApi instagramApi;
-    private ArrayList<User> users;
+    private ArrayList<User> followedByUsers,followsUsers;
     private Activity activity;
     private InstagramApp app;
 
@@ -64,7 +67,8 @@ public class InstagramFragment extends Fragment {
         if (getArguments() != null) {
         }
         setRetrofitAdapter();
-        users = new ArrayList<User>();
+        followedByUsers = new ArrayList<User>();
+        followsUsers = new ArrayList<User>();
     }
 
     @Override
@@ -110,12 +114,25 @@ public class InstagramFragment extends Fragment {
                         do{
                             followsResponse = instagramApi.getFollowedBy(access_token,cursor);
                             cursor = followsResponse.getPagination().getNext_cursor();
-                            users.addAll(followsResponse.getData());
+                            followedByUsers.addAll(followsResponse.getData());
                         }while (followsResponse.getPagination().getNext_cursor() != null);
-                        MySharedPrefs.saveObject("USER",userResponse.getData());
-                        MySharedPrefs.saveList("LIST", users);
+
+                        do{
+                            followsResponse = instagramApi.getFollows(access_token, cursor);
+                            cursor = followsResponse.getPagination().getNext_cursor();
+                            followsUsers.addAll(followsResponse.getData());
+                        }while (followsResponse.getPagination().getNext_cursor() != null);
+
+
+                        MySharedPrefs.saveObject("USER", userResponse.getData());
+                        MySharedPrefs.saveList(FOLLOWEDBY_LIST, followedByUsers);
+                        MySharedPrefs.saveList(FOLLOWS_LIST, followsUsers);
                         progressDialog.dismiss();
-                        Log.e(TAG,MySharedPrefs.loadList("LIST",User.class).size()+"");
+                        Log.e(TAG, FOLLOWEDBY_LIST + " = " + MySharedPrefs.loadList(FOLLOWEDBY_LIST, User.class).size());
+                        Log.e(TAG,FOLLOWS_LIST+" = "+MySharedPrefs.loadList(FOLLOWS_LIST,User.class).size());
+
+                        FragmentManager fragmentManager = getFragmentManager();
+                        fragmentManager.beginTransaction().add(R.id.frame,ProfileFragment.newInstance()).commit();
                     }
                 }).start();
                     }
@@ -125,23 +142,7 @@ public class InstagramFragment extends Fragment {
 
                     }
                 });
-////                Log.e(TAG,url);
-//                Log.e(TAG, access_token);
-//
-//                new Thread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        FollowsResponse followsResponse;
-//                        String cursor = null;
-//                        do{
-//                            followsResponse = instagramApi.getFollowedBy(access_token,cursor);
-//                            cursor = followsResponse.getPagination().getNext_cursor();
-//                            users.addAll(followsResponse.getData());
-//                        }while (followsResponse.getPagination().getNext_cursor() != null);
-//
-//                        Log.e(TAG,users.size()+"");
-//                    }
-//                }).start();
+
                 return true;
             }
             return false;
