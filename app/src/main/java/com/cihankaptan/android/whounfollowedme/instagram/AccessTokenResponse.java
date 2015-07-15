@@ -1,12 +1,9 @@
 package com.cihankaptan.android.whounfollowedme.instagram;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
 /**
  * Created by cihan on 10.07.2015.
  */
-public class AccessTokenResponse implements Parcelable {
+public class AccessTokenResponse{
 
 
     /**
@@ -33,32 +30,5 @@ public class AccessTokenResponse implements Parcelable {
     }
 
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
 
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(this.access_token);
-        dest.writeParcelable(this.user, 0);
-    }
-
-    public AccessTokenResponse() {
-    }
-
-    protected AccessTokenResponse(Parcel in) {
-        this.access_token = in.readString();
-        this.user = in.readParcelable(User.class.getClassLoader());
-    }
-
-    public static final Parcelable.Creator<AccessTokenResponse> CREATOR = new Parcelable.Creator<AccessTokenResponse>() {
-        public AccessTokenResponse createFromParcel(Parcel source) {
-            return new AccessTokenResponse(source);
-        }
-
-        public AccessTokenResponse[] newArray(int size) {
-            return new AccessTokenResponse[size];
-        }
-    };
 }

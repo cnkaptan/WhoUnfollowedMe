@@ -1,4 +1,4 @@
-package com.cihankaptan.android.whounfollowedme;
+package com.cihankaptan.android.whounfollowedme.ui.fragment;
 
 
 import android.app.Activity;
@@ -11,10 +11,16 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.cihankaptan.android.whounfollowedme.R;
 import com.cihankaptan.android.whounfollowedme.instagram.User;
+import com.cihankaptan.android.whounfollowedme.ui.activity.MainActivity;
+import com.cihankaptan.android.whounfollowedme.util.MySharedPrefs;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+
+import butterknife.ButterKnife;
+import butterknife.InjectView;
 
 
 /**
@@ -25,14 +31,19 @@ import java.util.ArrayList;
 public class ProfileFragment extends Fragment {
     public static final String FOLLOWEDBY_LIST = "FOLLOWEDBY_LIST";
     public static final String FOLLOWS_LIST = "FOLLOWS_LIST";
-    private View view;
-    private Activity activity;
+    @InjectView(R.id.profilePhoto)
     ImageView profileImage;
+    @InjectView(R.id.username)
     TextView userName;
+    @InjectView(R.id.follows_button)
     Button follows;
+    @InjectView(R.id.followedby_button)
     Button followedBy;
+    private View view;
+    private MainActivity activity;
+
     User user;
-    ArrayList<User> followsList,followedByList;
+    ArrayList<User> followsList, followedByList;
 
     public static ProfileFragment newInstance() {
         ProfileFragment fragment = new ProfileFragment();
@@ -49,7 +60,7 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        this.activity = activity;
+        this.activity = (MainActivity) activity;
     }
 
     @Override
@@ -58,9 +69,9 @@ public class ProfileFragment extends Fragment {
         if (getArguments() != null) {
 
         }
-        user = MySharedPrefs.loadObject("USER",User.class);
-        followsList = (ArrayList<User>) MySharedPrefs.loadList(FOLLOWS_LIST,User.class);
-        followedByList = (ArrayList<User>) MySharedPrefs.loadList(FOLLOWEDBY_LIST,User.class);
+        user = MySharedPrefs.loadObject("USER", User.class);
+        followsList = (ArrayList<User>) MySharedPrefs.loadList(FOLLOWS_LIST, User.class);
+        followedByList = (ArrayList<User>) MySharedPrefs.loadList(FOLLOWEDBY_LIST, User.class);
     }
 
     @Override
@@ -68,17 +79,38 @@ public class ProfileFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_profile, container, false);
-        profileImage = (ImageView)view.findViewById(R.id.profilePhoto);
-        userName = (TextView)view.findViewById(R.id.username);
-        follows = (Button)view.findViewById(R.id.follows_button);
-        followedBy = (Button)view.findViewById(R.id.followedby_button);
+        ButterKnife.inject(this, view);
 
         Picasso.with(activity).load(user.getProfile_picture()).into(profileImage);
         userName.setText(user.getUsername());
-        follows.setText(""+followsList.size());
-        followedBy.setText(""+followedByList.size());
+        follows.setText("" + followsList.size());
+        followedBy.setText("" + followedByList.size());
+
+        followedBy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                activity.replaceFragment(FollowedByFragment.newInstance());
+            }
+        });
+
+        follows.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                activity.replaceFragment(FollowsFragment.newInstance());
+            }
+        });
         return view;
     }
+
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ButterKnife.reset(this);
+    }
+
+
+
 
 
 }

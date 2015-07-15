@@ -1,4 +1,4 @@
-package com.cihankaptan.android.whounfollowedme;
+package com.cihankaptan.android.whounfollowedme.util;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -73,4 +73,6 @@ public class MySharedPrefs {
             return null;
         }
     }
+
+
 }

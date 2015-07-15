@@ -1,6 +1,7 @@
-package com.cihankaptan.android.whounfollowedme;
+package com.cihankaptan.android.whounfollowedme.ui.fragment;
 
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
@@ -10,13 +11,21 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.CookieManager;
+import android.webkit.CookieSyncManager;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import com.cihankaptan.android.whounfollowedme.InstagramApi;
+import com.cihankaptan.android.whounfollowedme.R;
 import com.cihankaptan.android.whounfollowedme.instagram.FollowsResponse;
 import com.cihankaptan.android.whounfollowedme.instagram.Instagram;
 import com.cihankaptan.android.whounfollowedme.instagram.User;
 import com.cihankaptan.android.whounfollowedme.instagram.UserResponse;
+import com.cihankaptan.android.whounfollowedme.util.Constans;
+import com.cihankaptan.android.whounfollowedme.util.InstagramApp;
+import com.cihankaptan.android.whounfollowedme.util.MySharedPrefs;
 
 import java.util.ArrayList;
 
@@ -31,10 +40,9 @@ import retrofit.client.Response;
  * Use the {@link InstagramFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class InstagramFragment extends Fragment {
+public class InstagramFragment extends Fragment implements Constans{
 
-    public static final String FOLLOWEDBY_LIST = "FOLLOWEDBY_LIST";
-    public static final String FOLLOWS_LIST = "FOLLOWS_LIST";
+
     private View view;
     private final String TAG = InstagramFragment.class.getSimpleName();
     private ProgressDialog progressDialog;
@@ -71,11 +79,16 @@ public class InstagramFragment extends Fragment {
         followsUsers = new ArrayList<User>();
     }
 
+    @SuppressLint("SetJavaScriptEnabled")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_instagram, container, false);
+        CookieSyncManager.createInstance(activity);
+        CookieManager cookieManager = CookieManager.getInstance();
+        cookieManager.removeAllCookie();
+
 
         WebView webView = (WebView) view.findViewById(R.id.webView);
         webView.setVerticalScrollBarEnabled(false);
@@ -83,7 +96,9 @@ public class InstagramFragment extends Fragment {
         webView.setWebViewClient(new AuthWebViewClient());
         webView.getSettings().setJavaScriptEnabled(true);
         webView.loadUrl(Instagram.getAuthurl());
-
+        WebSettings ws = webView.getSettings();
+        ws.setSaveFormData(false);
+        ws.setSavePassword(false);
         progressDialog = new ProgressDialog(container.getContext());
 
         return view;
@@ -124,7 +139,7 @@ public class InstagramFragment extends Fragment {
                         }while (followsResponse.getPagination().getNext_cursor() != null);
 
 
-                        MySharedPrefs.saveObject("USER", userResponse.getData());
+                        MySharedPrefs.saveObject(USER, userResponse.getData());
                         MySharedPrefs.saveList(FOLLOWEDBY_LIST, followedByUsers);
                         MySharedPrefs.saveList(FOLLOWS_LIST, followsUsers);
                         progressDialog.dismiss();
@@ -132,7 +147,7 @@ public class InstagramFragment extends Fragment {
                         Log.e(TAG,FOLLOWS_LIST+" = "+MySharedPrefs.loadList(FOLLOWS_LIST,User.class).size());
 
                         FragmentManager fragmentManager = getFragmentManager();
-                        fragmentManager.beginTransaction().add(R.id.frame,ProfileFragment.newInstance()).commit();
+                        fragmentManager.beginTransaction().replace(R.id.frame, ProfileFragment.newInstance()).commit();
                     }
                 }).start();
                     }

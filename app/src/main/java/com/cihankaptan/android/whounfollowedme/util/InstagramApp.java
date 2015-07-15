@@ -1,6 +1,8 @@
-package com.cihankaptan.android.whounfollowedme;
+package com.cihankaptan.android.whounfollowedme.util;
 
 import android.app.Application;
+
+import com.cihankaptan.android.whounfollowedme.util.MySharedPrefs;
 
 /**
  * Created by cihan on 13.07.2015.
