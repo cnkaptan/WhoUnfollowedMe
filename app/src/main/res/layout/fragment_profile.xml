@@ -95,7 +95,7 @@
                 android:id="@+id/you_unfollow_header"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Senin Takip Etmediklerin"
+                android:text="Seni Takip Etmeyenler"
                 android:gravity="center"
                 android:textStyle="bold"/>
 

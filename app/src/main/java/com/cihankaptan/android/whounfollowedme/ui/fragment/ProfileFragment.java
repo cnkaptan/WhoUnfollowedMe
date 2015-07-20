@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.cihankaptan.android.whounfollowedme.R;
 import com.cihankaptan.android.whounfollowedme.instagram.User;
 import com.cihankaptan.android.whounfollowedme.ui.activity.MainActivity;
+import com.cihankaptan.android.whounfollowedme.util.Constans;
 import com.cihankaptan.android.whounfollowedme.util.ListUtil;
 import com.cihankaptan.android.whounfollowedme.util.MySharedPrefs;
 import com.squareup.picasso.Picasso;
@@ -30,9 +31,7 @@ import butterknife.InjectView;
  * Use the {@link ProfileFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ProfileFragment extends Fragment {
-    public static final String FOLLOWEDBY_LIST = "FOLLOWEDBY_LIST";
-    public static final String FOLLOWS_LIST = "FOLLOWS_LIST";
+public class ProfileFragment extends Fragment implements Constans{
     private static final String TAG = ProfileFragment.class.getSimpleName();
     @InjectView(R.id.profilePhoto)
     ImageView profileImage;
@@ -82,8 +81,10 @@ public class ProfileFragment extends Fragment {
 
 
         differenceFollows = (ArrayList<User>) ListUtil.difference(followsList, followedByList);
+        MySharedPrefs.saveList(YOU_UNFOLLOWED,differenceFollows);
         Log.e(TAG, String.valueOf(differenceFollows.size()));
         differenceFollowedBy = (ArrayList<User>) ListUtil.difference(followedByList, followsList);
+        MySharedPrefs.saveList(UNFOLLOWED_YOU,differenceFollowedBy);
         Log.e(TAG, String.valueOf(differenceFollowedBy.size()));
     }
 
@@ -113,6 +114,20 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 activity.replaceFragment(FollowsFragment.newInstance());
+            }
+        });
+
+        youUnfollow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                activity.replaceFragment(GeneralListFragment.newInstance(YOU_UNFOLLOWED));
+            }
+        });
+
+        unfollowYou.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                activity.replaceFragment(GeneralListFragment.newInstance(UNFOLLOWED_YOU));
             }
         });
         return view;

@@ -6,6 +6,8 @@ package com.cihankaptan.android.whounfollowedme.util;
 public interface Constans {
     String FOLLOWEDBY_LIST = "FOLLOWEDBY_LIST";
     String FOLLOWS_LIST = "FOLLOWS_LIST";
+    String YOU_UNFOLLOWED = "YOU_UNFOLLOWED";
+    String UNFOLLOWED_YOU = "UNFOLLOWED_YOU";
     String USER = "USER";
-    String ACCESS_TOKEN = "access_token";
+    String ACCESS_TOKEN = "ACCESS_TOKEN";
 }
