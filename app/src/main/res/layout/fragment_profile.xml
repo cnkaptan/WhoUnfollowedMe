@@ -23,8 +23,9 @@
         android:textSize="22sp" />
 
     <LinearLayout
+        android:id="@+id/buttonGroup"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="wrap_content"
         android:layout_below="@id/username"
         android:layout_marginTop="40dp"
         android:orientation="horizontal">
@@ -34,13 +35,21 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_gravity="center">
+            <TextView
+                android:id="@+id/follows_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Takip Ettiklerin"
+                android:gravity="center"
+                android:textStyle="bold"/>
 
             <Button
                 android:id="@+id/follows_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:padding="8dp" />
+                android:padding="8dp"
+                android:layout_below="@id/follows_header"/>
         </RelativeLayout>
 
         <RelativeLayout
@@ -49,12 +58,79 @@
             android:layout_weight="1"
             android:layout_gravity="center">
 
+            <TextView
+                android:id="@+id/followedby_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Takip Edenler"
+                android:gravity="center"
+                android:textStyle="bold"/>
+
             <Button
                 android:id="@+id/followedby_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:padding="8dp"/>
+                android:padding="8dp"
+                android:layout_below="@id/followedby_header"/>
+        </RelativeLayout>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/buttonGroup"
+        android:layout_marginTop="40dp"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_gravity="center">
+
+            <TextView
+                android:id="@+id/you_unfollow_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Senin Takip Etmediklerin"
+                android:gravity="center"
+                android:textStyle="bold"/>
+
+            <Button
+                android:id="@+id/you_unfollow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:padding="8dp"
+                android:layout_below="@id/you_unfollow_header"
+                android:layout_marginTop="8dp"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_gravity="center">
+
+            <TextView
+                android:id="@+id/unfollow_you_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Senin Takip Etmediklerin"
+                android:gravity="center"
+                android:textStyle="bold"/>
+
+            <Button
+                android:id="@+id/unfollow_you"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:padding="8dp"
+                android:layout_below="@id/unfollow_you_header"
+                android:layout_marginTop="8dp"/>
         </RelativeLayout>
 
     </LinearLayout>

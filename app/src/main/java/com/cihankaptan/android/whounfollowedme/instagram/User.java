@@ -76,4 +76,8 @@ public class User{
     }
 
 
+    @Override
+    public String toString() {
+        return String.format("UserName = %s \t FullName = %s \t id = %s",username,full_name,id);
+    }
 }

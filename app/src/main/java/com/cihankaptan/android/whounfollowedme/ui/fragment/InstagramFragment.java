@@ -114,9 +114,9 @@ public class InstagramFragment extends Fragment implements Constans{
                 Log.e(TAG,url);
                 String parts[] = url.split("=");
                 final String access_token = parts[1];  //This is your request token.
+                MySharedPrefs.saveString(ACCESS_TOKEN,access_token);
                 progressDialog = ProgressDialog.show(activity,"Yukleniyor","Bilgileriniz Yukleniyor");
                 progressDialog.setCancelable(true);
-
                 instagramApi.getUserInfo(access_token, new Callback<UserResponse>() {
 
                     @Override

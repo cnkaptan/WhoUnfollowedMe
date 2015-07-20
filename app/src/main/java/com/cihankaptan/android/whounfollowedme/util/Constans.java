@@ -7,4 +7,5 @@ public interface Constans {
     String FOLLOWEDBY_LIST = "FOLLOWEDBY_LIST";
     String FOLLOWS_LIST = "FOLLOWS_LIST";
     String USER = "USER";
+    String ACCESS_TOKEN = "access_token";
 }

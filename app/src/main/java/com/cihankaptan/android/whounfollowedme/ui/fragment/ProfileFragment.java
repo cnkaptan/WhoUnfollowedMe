@@ -4,6 +4,7 @@ package com.cihankaptan.android.whounfollowedme.ui.fragment;
 import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 import com.cihankaptan.android.whounfollowedme.R;
 import com.cihankaptan.android.whounfollowedme.instagram.User;
 import com.cihankaptan.android.whounfollowedme.ui.activity.MainActivity;
+import com.cihankaptan.android.whounfollowedme.util.ListUtil;
 import com.cihankaptan.android.whounfollowedme.util.MySharedPrefs;
 import com.squareup.picasso.Picasso;
 
@@ -31,6 +33,7 @@ import butterknife.InjectView;
 public class ProfileFragment extends Fragment {
     public static final String FOLLOWEDBY_LIST = "FOLLOWEDBY_LIST";
     public static final String FOLLOWS_LIST = "FOLLOWS_LIST";
+    private static final String TAG = ProfileFragment.class.getSimpleName();
     @InjectView(R.id.profilePhoto)
     ImageView profileImage;
     @InjectView(R.id.username)
@@ -39,11 +42,15 @@ public class ProfileFragment extends Fragment {
     Button follows;
     @InjectView(R.id.followedby_button)
     Button followedBy;
+    @InjectView(R.id.you_unfollow)
+    Button youUnfollow;
+    @InjectView(R.id.unfollow_you)
+    Button unfollowYou;
     private View view;
     private MainActivity activity;
 
     User user;
-    ArrayList<User> followsList, followedByList;
+    ArrayList<User> followsList, followedByList, differenceFollows, differenceFollowedBy;
 
     public static ProfileFragment newInstance() {
         ProfileFragment fragment = new ProfileFragment();
@@ -72,6 +79,12 @@ public class ProfileFragment extends Fragment {
         user = MySharedPrefs.loadObject("USER", User.class);
         followsList = (ArrayList<User>) MySharedPrefs.loadList(FOLLOWS_LIST, User.class);
         followedByList = (ArrayList<User>) MySharedPrefs.loadList(FOLLOWEDBY_LIST, User.class);
+
+
+        differenceFollows = (ArrayList<User>) ListUtil.difference(followsList, followedByList);
+        Log.e(TAG, String.valueOf(differenceFollows.size()));
+        differenceFollowedBy = (ArrayList<User>) ListUtil.difference(followedByList, followsList);
+        Log.e(TAG, String.valueOf(differenceFollowedBy.size()));
     }
 
     @Override
@@ -85,6 +98,9 @@ public class ProfileFragment extends Fragment {
         userName.setText(user.getUsername());
         follows.setText("" + followsList.size());
         followedBy.setText("" + followedByList.size());
+        youUnfollow.setText(differenceFollows.size()+"");
+        unfollowYou.setText(differenceFollowedBy.size()+"");
+
 
         followedBy.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -108,9 +124,6 @@ public class ProfileFragment extends Fragment {
         super.onDestroyView();
         ButterKnife.reset(this);
     }
-
-
-
 
 
 }
