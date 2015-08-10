@@ -1,6 +1,7 @@
 package com.cihankaptan.android.whounfollowedme.adapter;
 
 import android.content.Context;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,8 +22,11 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.UserVi
 
     private static Context context;
     private ArrayList<User> users;
-    private User user;
 
+    private enum SwipedState {
+        SHOWING_PRIMARY_CONTENT,
+        SHOWING_SECONDARY_CONTENT
+    }
     public UserListAdapter(ArrayList<User> users,Context context){
         this.users = users;
         UserListAdapter.context = context;
@@ -53,6 +57,7 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.UserVi
         public TextView fullName;
         public TextView userName;
         public ImageView profilePhoto;
+        public ViewPager viewPager;
 
         public UserViewHolder(View itemView) {
             super(itemView);
@@ -60,12 +65,16 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.UserVi
             fullName = (TextView) itemView.findViewById(R.id.full_name);
             userName = (TextView) itemView.findViewById(R.id.user_name);
             profilePhoto = (ImageView) itemView.findViewById(R.id.profilePhoto);
+
+
         }
 
         public void bindUser(User user) {
             fullName.setText(user.getFull_name());
             userName.setText(user.getUsername());
             Picasso.with(context).load(user.getProfile_picture()).into(profilePhoto);
+
+
         }
     }
 }
