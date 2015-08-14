@@ -1,9 +1,12 @@
 package com.cihankaptan.android.whounfollowedme.instagram;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by cihan on 10.07.2015.
  */
-public class User{
+public class User implements Parcelable {
 
     /**
      * full_name : Snoop Dogg
@@ -80,4 +83,43 @@ public class User{
     public String toString() {
         return String.format("UserName = %s \t FullName = %s \t id = %s",username,full_name,id);
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.full_name);
+        dest.writeString(this.profile_picture);
+        dest.writeString(this.id);
+        dest.writeString(this.username);
+        dest.writeString(this.bio);
+        dest.writeString(this.website);
+        dest.writeParcelable(this.counts, 0);
+    }
+
+    public User() {
+    }
+
+    protected User(Parcel in) {
+        this.full_name = in.readString();
+        this.profile_picture = in.readString();
+        this.id = in.readString();
+        this.username = in.readString();
+        this.bio = in.readString();
+        this.website = in.readString();
+        this.counts = in.readParcelable(CountsEntity.class.getClassLoader());
+    }
+
+    public static final Parcelable.Creator<User> CREATOR = new Parcelable.Creator<User>() {
+        public User createFromParcel(Parcel source) {
+            return new User(source);
+        }
+
+        public User[] newArray(int size) {
+            return new User[size];
+        }
+    };
 }

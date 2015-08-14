@@ -30,4 +30,9 @@
         <attr name="polygonImageViewStyle" format="reference" />
     </declare-styleable>
 
+    <declare-styleable name="FontTextView">
+        <attr name="font" format="string" />
+    </declare-styleable>
+
+
 </resources>

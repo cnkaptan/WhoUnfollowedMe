@@ -3,10 +3,12 @@ package com.cihankaptan.android.whounfollowedme;
 import android.support.annotation.Nullable;
 
 import com.cihankaptan.android.whounfollowedme.instagram.FollowsResponse;
+import com.cihankaptan.android.whounfollowedme.instagram.MediaResponse;
 import com.cihankaptan.android.whounfollowedme.instagram.UserResponse;
 
 import retrofit.Callback;
 import retrofit.http.GET;
+import retrofit.http.Path;
 import retrofit.http.Query;
 
 /**
@@ -29,4 +31,8 @@ public interface InstagramApi {
     @GET("/users/self/followed-by")
     FollowsResponse getFollowedBy(@Query("access_token")String accessToken,@Nullable @Query("cursor")String cursor);
 
+
+
+    @GET("/users/{user-id}/media/recent/")
+    void getRecentPics(@Path("user-id")String userId,@Query("access_token")String accessToken,Callback<MediaResponse> mediaResponseCallback);
 }

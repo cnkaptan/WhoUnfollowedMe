@@ -6,7 +6,9 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.text.Html;
 import android.util.Log;
 
 import com.cihankaptan.android.whounfollowedme.InstagramApi;
@@ -29,25 +31,31 @@ import retrofit.RetrofitError;
 import retrofit.client.Response;
 
 
-public class MainActivity extends ActionBarActivity implements Constans{
+public class MainActivity extends AppCompatActivity implements Constans{
     private static final String TAG = MainActivity.class.getSimpleName();
     private FragmentManager manager;
     private FragmentTransaction transaction;
-    private InstagramApi instagramApi;
+    public InstagramApi instagramApi;
     private ProgressDialog progressDialog;
-    private List<User> followedByUsers = new ArrayList<>();
-    private List<User> followsUsers = new ArrayList<>();
     private String access_token;
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        setRetrofitAdapter();
 
         manager = getFragmentManager();
         access_token = MySharedPrefs.loadString(ACCESS_TOKEN);
 
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+
         progressDialog = new ProgressDialog(this);
+
+
 
 
 
@@ -56,15 +64,13 @@ public class MainActivity extends ActionBarActivity implements Constans{
     @Override
     protected void onStart() {
         super.onStart();
-
-
         if (access_token != null){
-            Log.e(TAG, "Access token 0 dan farkli");
-            setRetrofitAdapter();
+            Log.e(TAG,access_token);
             progressDialog = ProgressDialog.show(this,"Yukleniyor","Bilgileriniz Yukleniyor");
             progressDialog.setCancelable(true);
             instagramApi.getUserInfo(access_token, new Callback<UserResponse>() {
-
+                private List<User> followedByUsers = new ArrayList<>();
+                private List<User> followsUsers = new ArrayList<>();
                 @Override
                 public void success(final UserResponse userResponse, Response response) {
                     new Thread(new Runnable() {
@@ -93,7 +99,7 @@ public class MainActivity extends ActionBarActivity implements Constans{
                             Log.e(TAG, FOLLOWS_LIST + " = " + MySharedPrefs.loadList(FOLLOWS_LIST, User.class).size());
 
 
-                            addFragment(ProfileFragment.newInstance());
+                            replaceFragment(ProfileFragment.newInstance());
                         }
                     }).start();
                 }
@@ -105,7 +111,7 @@ public class MainActivity extends ActionBarActivity implements Constans{
             });
         }else{
             Log.e(TAG,"Access token 0");
-            addFragment(InstagramFragment.newInstance());
+            replaceFragment(InstagramFragment.newInstance());
         }
     }
 
@@ -120,13 +126,14 @@ public class MainActivity extends ActionBarActivity implements Constans{
     @SuppressLint("CommitTransaction")
     public void replaceFragment(Fragment fragment){
         transaction = manager.beginTransaction();
-        transaction.replace(R.id.frame,fragment)
+        transaction.replace(R.id.frame, fragment)
                 .addToBackStack(null)
                 .commit();
     }
 
     public void setRetrofitAdapter(){
         RestAdapter restAdapter = new RestAdapter.Builder()
+                .setLogLevel(RestAdapter.LogLevel.FULL)
                 .setEndpoint(Instagram.APIURL)
                 .build();
 
@@ -144,4 +151,9 @@ public class MainActivity extends ActionBarActivity implements Constans{
 
         }
     }
+
+    public void setTitle(String str){
+        getSupportActionBar().setTitle((Html.fromHtml("<font color=\"#2A2D34\">" + str + "</font>")));
+    }
+
 }

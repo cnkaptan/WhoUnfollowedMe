@@ -75,6 +75,7 @@ public class FollowedByFragment extends Fragment implements Constans{
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(activity);
         reyclerView.setLayoutManager(layoutManager);
         reyclerView.setAdapter(userListAdapter);
+        activity.setTitle("Takip Edenler");
         return view;
     }
 

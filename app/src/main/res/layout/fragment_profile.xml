@@ -1,22 +1,23 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/dark_grey"
     tools:context="com.cihankaptan.android.whounfollowedme.ui.fragment.ProfileFragment">
 
     <net.grobas.view.PolygonImageView
         android:id="@+id/profilePhoto"
-        android:layout_width="160dp"
-        android:layout_height="160dp"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="40dp"
-        app:poly_vertices="0"
         app:poly_border="true"
+        app:poly_border_color="@color/image_border_dark_blue"
         app:poly_border_width="4dp"
-        app:poly_border_color="#000"/>
+        app:poly_vertices="0" />
 
-    <TextView
+    <com.cihankaptan.android.whounfollowedme.view.FontTextView
         android:id="@+id/username"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -24,8 +25,9 @@
         android:layout_marginTop="8dp"
         android:gravity="center"
         android:text="Cihan Kaptan"
-        android:textColor="@color/black"
-        android:textSize="22sp" />
+        android:textColor="@color/app_green"
+        android:textSize="22sp"
+        app:font="Itim-Regular.ttf" />
 
     <LinearLayout
         android:id="@+id/buttonGroup"
@@ -38,46 +40,53 @@
         <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_gravity="center">
-            <TextView
+            android:layout_gravity="center"
+            android:layout_weight="1">
+
+            <com.cihankaptan.android.whounfollowedme.view.FontTextView
                 android:id="@+id/follows_header"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Takip Ettiklerin"
                 android:gravity="center"
-                android:textStyle="bold"/>
+                android:text="Takip Ettiklerin"
+                android:textColor="@color/app_green"
+                app:font="Itim-Regular.ttf" />
 
-            <Button
+            <com.cihankaptan.android.whounfollowedme.view.FontButton
                 android:id="@+id/follows_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/follows_header"
                 android:layout_centerHorizontal="true"
                 android:padding="8dp"
-                android:layout_below="@id/follows_header"/>
+                app:font="Itim-Regular.ttf"
+                android:textColor="@color/image_border_dark_blue" />
         </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_gravity="center">
+            android:layout_gravity="center"
+            android:layout_weight="1">
 
-            <TextView
+            <com.cihankaptan.android.whounfollowedme.view.FontTextView
                 android:id="@+id/followedby_header"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Takip Edenler"
                 android:gravity="center"
-                android:textStyle="bold"/>
+                android:text="Takip Edenler"
+                android:textColor="@color/app_green"
+                app:font="Itim-Regular.ttf" />
 
-            <Button
+            <com.cihankaptan.android.whounfollowedme.view.FontButton
                 android:id="@+id/followedby_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/followedby_header"
                 android:layout_centerHorizontal="true"
                 android:padding="8dp"
-                android:layout_below="@id/followedby_header"/>
+                android:textColor="@color/image_border_dark_blue"
+                app:font="Itim-Regular.ttf" />
         </RelativeLayout>
 
     </LinearLayout>
@@ -93,49 +102,56 @@
         <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_gravity="center">
+            android:layout_gravity="center"
+            android:layout_weight="1">
 
-            <TextView
+            <com.cihankaptan.android.whounfollowedme.view.FontTextView
                 android:id="@+id/you_unfollow_header"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Seni Takip Etmeyenler"
                 android:gravity="center"
-                android:textStyle="bold"/>
+                android:text="Senin Takip Etmediklerin"
+                android:textColor="@color/app_green"
+                app:font="Itim-Regular.ttf" />
 
-            <Button
-                android:id="@+id/you_unfollow"
+            <com.cihankaptan.android.whounfollowedme.view.FontButton
+                android:id="@+id/unfollow_you"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:padding="8dp"
                 android:layout_below="@id/you_unfollow_header"
-                android:layout_marginTop="8dp"/>
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="8dp"
+                android:padding="8dp"
+                android:textColor="@color/image_border_dark_blue"
+                app:font="Itim-Regular.ttf" />
         </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_gravity="center">
+            android:layout_gravity="center"
+            android:layout_weight="1">
 
-            <TextView
+            <com.cihankaptan.android.whounfollowedme.view.FontTextView
                 android:id="@+id/unfollow_you_header"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Senin Takip Etmediklerin"
                 android:gravity="center"
-                android:textStyle="bold"/>
+                android:text="Seni Takip Etmeyenler"
+                android:textColor="@color/app_green"
+                app:font="Itim-Regular.ttf"/>
 
-            <Button
-                android:id="@+id/unfollow_you"
+            <com.cihankaptan.android.whounfollowedme.view.FontButton
+                android:id="@+id/you_unfollow"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:padding="8dp"
                 android:layout_below="@id/unfollow_you_header"
-                android:layout_marginTop="8dp"/>
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="8dp"
+                android:elevation="8dp"
+                android:padding="10dp"
+                android:textColor="@color/image_border_dark_blue"
+                app:font="Itim-Regular.ttf" />
         </RelativeLayout>
 
     </LinearLayout>

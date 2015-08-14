@@ -94,7 +94,7 @@ public class ProfileFragment extends Fragment implements Constans{
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_profile, container, false);
         ButterKnife.inject(this, view);
-
+        activity.setTitle(getString(R.string.app_name));
         Picasso.with(activity).load(user.getProfile_picture()).into(profileImage);
         userName.setText(user.getUsername());
         follows.setText("" + followsList.size());

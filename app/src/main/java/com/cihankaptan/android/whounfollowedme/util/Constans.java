@@ -10,4 +10,9 @@ public interface Constans {
     String UNFOLLOWED_YOU = "UNFOLLOWED_YOU";
     String USER = "USER";
     String ACCESS_TOKEN = "ACCESS_TOKEN";
+
+    int FLAG_FOLLOWEDBY = 200;
+    int FLAG_FOLLOWS = 201;
+    int FLAG_YOU_UNFOLLOWED = 202;
+    int FLAG_UNFOLLOWED_YOU =203;
 }

@@ -87,4 +87,6 @@ public class GeneralListFragment extends Fragment {
         super.onDestroyView();
         ButterKnife.reset(this);
     }
+
+
 }

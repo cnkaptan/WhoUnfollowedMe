@@ -1,16 +1,17 @@
 package com.cihankaptan.android.whounfollowedme.adapter;
 
-import android.content.Context;
-import android.support.v4.view.ViewPager;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.cihankaptan.android.whounfollowedme.R;
 import com.cihankaptan.android.whounfollowedme.instagram.User;
+import com.cihankaptan.android.whounfollowedme.ui.activity.MainActivity;
+import com.cihankaptan.android.whounfollowedme.ui.fragment.OtherUserProfileFragment;
+import com.cihankaptan.android.whounfollowedme.view.FontTextView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -20,16 +21,13 @@ import java.util.ArrayList;
  */
 public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.UserViewHolder>{
 
-    private static Context context;
+    private static MainActivity activity;
     private ArrayList<User> users;
 
-    private enum SwipedState {
-        SHOWING_PRIMARY_CONTENT,
-        SHOWING_SECONDARY_CONTENT
-    }
-    public UserListAdapter(ArrayList<User> users,Context context){
+
+    public UserListAdapter(ArrayList<User> users,MainActivity context){
         this.users = users;
-        UserListAdapter.context = context;
+        UserListAdapter.activity = context;
 
     }
 
@@ -54,26 +52,43 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.UserVi
 
     public static class UserViewHolder extends RecyclerView.ViewHolder{
 
-        public TextView fullName;
-        public TextView userName;
+        public FontTextView fullName;
+        public FontTextView userName;
         public ImageView profilePhoto;
-        public ViewPager viewPager;
+        public CardView cardView;
 
         public UserViewHolder(View itemView) {
             super(itemView);
 
-            fullName = (TextView) itemView.findViewById(R.id.full_name);
-            userName = (TextView) itemView.findViewById(R.id.user_name);
+            fullName = (FontTextView) itemView.findViewById(R.id.full_name);
+            userName = (FontTextView) itemView.findViewById(R.id.user_name);
             profilePhoto = (ImageView) itemView.findViewById(R.id.profilePhoto);
-
+            cardView = (CardView) itemView.findViewById(R.id.cardView);
 
         }
 
-        public void bindUser(User user) {
+        public void bindUser(final User user) {
             fullName.setText(user.getFull_name());
             userName.setText(user.getUsername());
-            Picasso.with(context).load(user.getProfile_picture()).into(profilePhoto);
+            Picasso.with(activity).load(user.getProfile_picture()).into(profilePhoto);
+            cardView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+//                    Uri uri = Uri.parse("http://instagram.com/"+user.getUsername());
+//                    Intent likeIng = new Intent(Intent.ACTION_VIEW, uri);
+//
+//                    likeIng.setPackage("com.instagram.android");
+//
+//                    try {
+//                        activity.startActivity(likeIng);
+//                    } catch (ActivityNotFoundException e) {
+//                        activity.startActivity(new Intent(Intent.ACTION_VIEW,
+//                                Uri.parse("http://instagram.com/"+user.getUsername())));
+//                    }
 
+                    activity.replaceFragment(OtherUserProfileFragment.newInstance(user));
+                }
+            });
 
         }
     }

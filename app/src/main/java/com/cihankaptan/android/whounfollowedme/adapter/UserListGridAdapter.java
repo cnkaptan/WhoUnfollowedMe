@@ -1,6 +1,10 @@
 package com.cihankaptan.android.whounfollowedme.adapter;
 
-import android.content.Context;
+import android.app.Activity;
+import android.content.ActivityNotFoundException;
+import android.content.Intent;
+import android.net.Uri;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,11 +24,11 @@ import java.util.ArrayList;
 public class UserListGridAdapter extends RecyclerView.Adapter<UserListGridAdapter.UserListGridHolder> {
 
 
-    private static Context context;
+    private static Activity context;
     private ArrayList<User> users;
     private User user;
 
-    public UserListGridAdapter(ArrayList<User> users,Context context){
+    public UserListGridAdapter(ArrayList<User> users,Activity context){
         this.users = users;
         UserListGridAdapter.context = context;
 
@@ -54,6 +58,7 @@ public class UserListGridAdapter extends RecyclerView.Adapter<UserListGridAdapte
         public TextView fullName;
         public TextView userName;
         public ImageView profilePhoto;
+        public CardView cardView;
 
         public UserListGridHolder(View itemView) {
             super(itemView);
@@ -61,12 +66,29 @@ public class UserListGridAdapter extends RecyclerView.Adapter<UserListGridAdapte
             fullName = (TextView) itemView.findViewById(R.id.full_name);
             userName = (TextView) itemView.findViewById(R.id.user_name);
             profilePhoto = (ImageView) itemView.findViewById(R.id.profilePhoto);
+            cardView = (CardView)itemView.findViewById(R.id.cardView);
         }
 
-        public void bindUser(User user) {
+        public void bindUser(final User user) {
             fullName.setText(user.getFull_name());
             userName.setText(user.getUsername());
             Picasso.with(context).load(user.getProfile_picture()).into(profilePhoto);
+            cardView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Uri uri = Uri.parse("http://instagram.com/" + user.getUsername());
+                    Intent likeIng = new Intent(Intent.ACTION_VIEW, uri);
+
+                    likeIng.setPackage("com.instagram.android");
+
+                    try {
+                        context.startActivityForResult(likeIng,201);
+                    } catch (ActivityNotFoundException e) {
+                        context.startActivityForResult(new Intent(Intent.ACTION_VIEW,
+                                Uri.parse("http://instagram.com/" + user.getUsername())),201);
+                    }
+                }
+            });
         }
     }
 }
