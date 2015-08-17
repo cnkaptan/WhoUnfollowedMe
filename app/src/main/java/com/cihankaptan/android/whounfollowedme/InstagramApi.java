@@ -19,11 +19,18 @@ public interface InstagramApi {
     @GET("/users/self")
     void getUserInfo(@Query("access_token")String accessToken,Callback<UserResponse> userResponseCallback);
 
+    @GET("/users/{user-id}")
+    void getUserInfo(@Path("user-id")String userId,@Query("access_token")String accessToken,Callback<UserResponse> userResponseCallback);
+
     @GET("/users/self/follows")
     void getFollows(@Query("access_token")String accessToken,Callback<FollowsResponse> followsResponseCallback);
 
+
     @GET("/users/self/follows")
     FollowsResponse getFollows(@Query("access_token")String accessToken,@Nullable @Query("cursor")String cursor);
+
+    @GET("/users/{user-id}/follows")
+    FollowsResponse getFollows(@Path("user-id")String userId,@Query("access_token")String accessToken,@Nullable @Query("cursor")String cursor);
 
     @GET("/users/self/followed-by")
     void getFollowedBy(@Query("access_token")String accessToken,Callback<FollowsResponse> followsResponseCallback);
@@ -31,7 +38,8 @@ public interface InstagramApi {
     @GET("/users/self/followed-by")
     FollowsResponse getFollowedBy(@Query("access_token")String accessToken,@Nullable @Query("cursor")String cursor);
 
-
+    @GET("/users/{user-id}/followed-by")
+    FollowsResponse getFollowedBy(@Path("user-id")String userId,@Query("access_token")String accessToken,@Nullable @Query("cursor")String cursor);
 
     @GET("/users/{user-id}/media/recent/")
     void getRecentPics(@Path("user-id")String userId,@Query("access_token")String accessToken,Callback<MediaResponse> mediaResponseCallback);

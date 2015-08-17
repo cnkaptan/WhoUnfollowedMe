@@ -6,7 +6,7 @@
     android:background="@color/dark_grey"
     tools:context="com.cihankaptan.android.whounfollowedme.ui.fragment.ProfileFragment">
 
-    <net.grobas.view.PolygonImageView
+    <ImageView
         android:id="@+id/profilePhoto"
         android:layout_width="120dp"
         android:layout_height="120dp"
@@ -34,7 +34,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/username"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="8dp"
         android:orientation="horizontal">
 
         <RelativeLayout
@@ -96,7 +96,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/buttonGroup"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="8dp"
         android:orientation="horizontal">
 
         <RelativeLayout

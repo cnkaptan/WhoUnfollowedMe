@@ -4,14 +4,14 @@ package com.cihankaptan.android.whounfollowedme.ui.fragment;
 import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.cihankaptan.android.whounfollowedme.R;
-import com.cihankaptan.android.whounfollowedme.adapter.UserListAdapter;
+import com.cihankaptan.android.whounfollowedme.adapter.UserListGridAdapter;
 import com.cihankaptan.android.whounfollowedme.instagram.User;
 import com.cihankaptan.android.whounfollowedme.ui.activity.MainActivity;
 import com.cihankaptan.android.whounfollowedme.util.MySharedPrefs;
@@ -74,8 +74,9 @@ public class GeneralListFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_general_list, container, false);
         ButterKnife.inject(this, view);
 
-        UserListAdapter userListAdapter = new UserListAdapter(userArrayList,activity);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(activity);
+
+        UserListGridAdapter userListAdapter = new UserListGridAdapter(userArrayList, activity);
+        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(activity,2);
         reyclerView.setLayoutManager(layoutManager);
         reyclerView.setAdapter(userListAdapter);
         return view;

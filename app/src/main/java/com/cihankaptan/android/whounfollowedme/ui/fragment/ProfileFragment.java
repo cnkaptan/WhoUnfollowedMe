@@ -79,7 +79,6 @@ public class ProfileFragment extends Fragment implements Constans{
         followsList = (ArrayList<User>) MySharedPrefs.loadList(FOLLOWS_LIST, User.class);
         followedByList = (ArrayList<User>) MySharedPrefs.loadList(FOLLOWEDBY_LIST, User.class);
 
-
         differenceFollows = (ArrayList<User>) ListUtil.difference(followsList, followedByList);
         MySharedPrefs.saveList(YOU_UNFOLLOWED,differenceFollows);
         Log.e(TAG, String.valueOf(differenceFollows.size()));

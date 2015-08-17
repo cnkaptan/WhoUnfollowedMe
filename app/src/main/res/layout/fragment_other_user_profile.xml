@@ -1,132 +1,164 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scrollView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/light_grey"
+    android:fillViewport="true"
+    android:scrollbars="none"
     tools:context="com.cihankaptan.android.whounfollowedme.ui.fragment.OtherUserProfileFragment">
 
-    <ImageView
-        android:id="@+id/profilePhoto"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp"
-        android:src="@mipmap/ic_launcher"
-        app:poly_border="true"
-        app:poly_border_color="@color/image_border_dark_blue"
-        app:poly_border_width="4dp"
-        app:poly_vertices="0" />
-
-    <com.cihankaptan.android.whounfollowedme.view.FontTextView
-        android:id="@+id/full_name"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/profilePhoto"
-        android:layout_marginTop="8dp"
-        android:gravity="center"
-        android:text="Cihan Kaptan"
-        android:textColor="@color/image_border_dark_blue"
-        android:textSize="@dimen/text_size_large" />
+        android:background="@color/light_grey"
+        android:orientation="vertical">
 
-    <com.cihankaptan.android.whounfollowedme.view.FontTextView
-        android:id="@+id/user_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/full_name"
-        android:layout_marginTop="8dp"
-        android:gravity="center"
-        android:text="cnkaptan"
-        android:textColor="@color/image_border_dark_blue"
-        android:textSize="@dimen/text_size_medium" />
+        <net.grobas.view.PolygonImageView
+            android:id="@+id/profilePhoto"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="16dp"
+            android:src="@mipmap/ic_launcher"
+            app:poly_border="true"
+            app:poly_border_color="@color/image_border_dark_blue"
+            app:poly_border_width="4dp"
+            app:poly_vertices="0" />
 
-    <LinearLayout
-        android:id="@+id/middle_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/user_name"
-        android:layout_marginTop="32dp"
-        android:orientation="horizontal">
+        <com.cihankaptan.android.whounfollowedme.view.FontTextView
+            android:id="@+id/full_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/profilePhoto"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:text="Cihan Kaptan"
+            android:textColor="@color/image_border_dark_blue"
+            android:textSize="@dimen/text_size_large" />
+
+        <com.cihankaptan.android.whounfollowedme.view.FontTextView
+            android:id="@+id/user_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/full_name"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:text="cnkaptan"
+            android:textColor="@color/image_border_dark_blue"
+            android:textSize="@dimen/text_size_medium" />
 
         <LinearLayout
-            android:layout_width="0dp"
+            android:id="@+id/middle_layout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical">
+            android:layout_below="@id/user_name"
+            android:layout_marginTop="32dp"
+            android:orientation="horizontal">
 
-            <com.cihankaptan.android.whounfollowedme.view.FontTextView
-                android:layout_width="match_parent"
+
+            <LinearLayout
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="Takip Ettikleri"
-                android:textColor="@color/image_border_dark_blue"
-                android:textSize="@dimen/text_size_medium"
-                app:font="Itim-Regular.ttf" />
+                android:layout_weight="1"
+                android:orientation="vertical">
 
-            <View
-                android:layout_width="wrap_content"
-                android:layout_height="2dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
-                android:layout_marginTop="4dp"
-                android:background="@color/image_border_dark_blue" />
 
-            <com.cihankaptan.android.whounfollowedme.view.FontTextView
-                android:layout_width="match_parent"
+                <com.cihankaptan.android.whounfollowedme.view.FontTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Takip Ettikleri"
+                    android:textColor="@color/image_border_dark_blue"
+                    android:textSize="@dimen/text_size_medium"
+                    app:font="Itim-Regular.ttf" />
+
+
+                <View
+                    android:layout_width="wrap_content"
+                    android:layout_height="2dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginTop="4dp"
+                    android:background="@color/image_border_dark_blue" />
+
+
+                <com.cihankaptan.android.whounfollowedme.view.FontTextView
+                    android:id="@+id/follows"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:gravity="center"
+                    android:textColor="@color/image_border_dark_blue"
+                    android:textSize="@dimen/text_size_medium"
+                    app:font="Itim-Regular.ttf" />
+
+
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:gravity="center"
-                android:text="120"
-                android:textColor="@color/image_border_dark_blue"
-                android:textSize="@dimen/text_size_medium"
-                app:font="Itim-Regular.ttf" />
+                android:layout_weight="1"
+                android:orientation="vertical">
 
 
+                <com.cihankaptan.android.whounfollowedme.view.FontTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Takipcileri"
+                    android:textColor="@color/image_border_dark_blue"
+                    android:textSize="@dimen/text_size_medium"
+                    app:font="Itim-Regular.ttf" />
+
+
+                <View
+                    android:layout_width="wrap_content"
+                    android:layout_height="2dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginTop="4dp"
+                    android:background="@color/image_border_dark_blue" />
+
+
+                <com.cihankaptan.android.whounfollowedme.view.FontTextView
+                    android:id="@+id/followedBy"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:gravity="center"
+                    android:textColor="@color/image_border_dark_blue"
+                    android:textSize="@dimen/text_size_medium"
+                    app:font="Itim-Regular.ttf" />
+
+
+            </LinearLayout>
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="0dp"
+
+        <Button
+            android:id="@+id/detailButton"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical">
+            android:layout_below="@id/middle_layout"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="32dp"
+            android:text="Instagram Profilini Gor"/>
 
-            <com.cihankaptan.android.whounfollowedme.view.FontTextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="Takipcileri"
-                android:textColor="@color/image_border_dark_blue"
-                android:textSize="@dimen/text_size_medium"
-                app:font="Itim-Regular.ttf" />
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/reyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/detailButton"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="32dp" />
 
-            <View
-                android:layout_width="wrap_content"
-                android:layout_height="2dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
-                android:layout_marginTop="4dp"
-                android:background="@color/image_border_dark_blue" />
+    </RelativeLayout>
+</ScrollView>
 
-            <com.cihankaptan.android.whounfollowedme.view.FontTextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:gravity="center"
-                android:text="120"
-                android:textColor="@color/image_border_dark_blue"
-                android:textSize="@dimen/text_size_medium"
-                app:font="Itim-Regular.ttf" />
-
-        </LinearLayout>
-    </LinearLayout>
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/reyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/middle_layout"
-        android:layout_marginTop="32dp"
-        />
-
-
-</RelativeLayout>
