@@ -19,6 +19,7 @@ import com.cihankaptan.android.whounfollowedme.InstagramApi;
 import com.cihankaptan.android.whounfollowedme.R;
 import com.cihankaptan.android.whounfollowedme.instagram.FollowsResponse;
 import com.cihankaptan.android.whounfollowedme.instagram.Instagram;
+import com.cihankaptan.android.whounfollowedme.instagram.MediaResponse;
 import com.cihankaptan.android.whounfollowedme.instagram.User;
 import com.cihankaptan.android.whounfollowedme.instagram.UserResponse;
 import com.cihankaptan.android.whounfollowedme.ui.fragment.InstagramFragment;
@@ -96,6 +97,8 @@ public class MainActivity extends AppCompatActivity implements Constans {
                         @Override
                         public void run() {
                             FollowsResponse followsResponse;
+                            MediaResponse mediaResponse = instagramApi.getRecentPics(access_token);
+                            MySharedPrefs.saveObject(MEDIA_RESPONSE,mediaResponse);
                             String cursor = null;
                             do {
                                 followsResponse = instagramApi.getFollowedBy(access_token, cursor);

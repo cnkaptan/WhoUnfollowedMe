@@ -28,6 +28,10 @@
             android:name=".ui.activity.UserDetailActivity"
             android:label="@string/title_activity_user_detail" >
         </activity>
+        <activity
+            android:name=".ui.activity.MediaActivity"
+            android:label="@string/title_activity_media" >
+        </activity>
     </application>
 
 </manifest>

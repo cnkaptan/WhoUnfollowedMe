@@ -3,6 +3,7 @@ package com.cihankaptan.android.whounfollowedme;
 import android.support.annotation.Nullable;
 
 import com.cihankaptan.android.whounfollowedme.instagram.FollowsResponse;
+import com.cihankaptan.android.whounfollowedme.instagram.LikesResponse;
 import com.cihankaptan.android.whounfollowedme.instagram.MediaResponse;
 import com.cihankaptan.android.whounfollowedme.instagram.UserResponse;
 
@@ -43,4 +44,13 @@ public interface InstagramApi {
 
     @GET("/users/{user-id}/media/recent/")
     void getRecentPics(@Path("user-id")String userId,@Query("access_token")String accessToken,Callback<MediaResponse> mediaResponseCallback);
+
+    @GET("/users/self/media/recent/")
+    MediaResponse getRecentPics(@Query("access_token")String accessToken);
+
+    @GET("/media/{media-id}/likes")
+    void  getLikes(@Path("media-id")String mediaId,@Query("access_token")String accessToken,Callback<LikesResponse> likesResponseCallback);
+
+    @GET("/media/{media-id}/likes")
+    LikesResponse  getLikes(@Path("media-id")String mediaId,@Query("access_token")String accessToken);
 }

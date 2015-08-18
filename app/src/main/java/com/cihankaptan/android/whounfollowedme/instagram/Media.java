@@ -7,6 +7,9 @@ public class Media {
 
     Likes likes;
     Images images;
+    Caption caption;
+    String id;
+    Pagination pagination;
 
     public Likes getLikes() {
         return likes;
@@ -24,5 +27,27 @@ public class Media {
         this.images = images;
     }
 
+    public Caption getCaption() {
+        return caption;
+    }
 
+    public void setCaption(Caption caption) {
+        this.caption = caption;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public Pagination getPagination() {
+        return pagination;
+    }
+
+    public void setPagination(Pagination pagination) {
+        this.pagination = pagination;
+    }
 }
