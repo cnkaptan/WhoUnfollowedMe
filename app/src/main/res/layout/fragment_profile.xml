@@ -1,11 +1,11 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scrollView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
     android:scrollbars="none"
-    android:id="@+id/scrollView"
     tools:context="com.cihankaptan.android.whounfollowedme.ui.fragment.ProfileFragment">
 
     <RelativeLayout
@@ -31,7 +31,7 @@
             android:layout_below="@id/profilePhoto"
             android:layout_marginTop="8dp"
             android:gravity="center"
-            android:text="Cihan Kaptan"
+            android:text=""
             android:textColor="@color/image_border_dark_blue"
             android:textSize="22sp"
             app:font="Itim-Regular.ttf" />
@@ -55,21 +55,30 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="Takip Ettiklerin"
+                    android:text="@string/takip_ettikleri"
                     android:textColor="@color/image_border_dark_blue"
                     app:font="Itim-Regular.ttf" />
 
-                <com.cihankaptan.android.whounfollowedme.view.FontButton
-                    android:id="@+id/follows_button"
+                <android.support.v7.widget.CardView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/follows_header"
                     android:layout_centerHorizontal="true"
-                    android:padding="8dp"
                     android:layout_marginTop="8dp"
-                    app:font="Itim-Regular.ttf"
-                    android:background="@drawable/button_bg"
-                    android:textColor="@color/image_border_dark_blue" />
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="20dp">
+
+                    <com.cihankaptan.android.whounfollowedme.view.FontButton
+                        android:id="@+id/follows_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/follows_header"
+                        android:layout_centerHorizontal="true"
+                        android:background="@drawable/button_bg"
+                        android:padding="8dp"
+                        android:textColor="@color/image_border_dark_blue"
+                        app:font="Itim-Regular.ttf" />
+                </android.support.v7.widget.CardView>
             </RelativeLayout>
 
             <RelativeLayout
@@ -83,21 +92,29 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="Takip Edenler"
+                    android:text="@string/takip_edenler"
                     android:textColor="@color/image_border_dark_blue"
                     app:font="Itim-Regular.ttf" />
 
+                <android.support.v7.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/followedby_header"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="8dp"
+                    app:cardElevation="20dp"
+                    app:cardCornerRadius="8dp">
                 <com.cihankaptan.android.whounfollowedme.view.FontButton
                     android:id="@+id/followedby_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/followedby_header"
                     android:layout_centerHorizontal="true"
-                    android:padding="8dp"
-                    android:layout_marginTop="8dp"
                     android:background="@drawable/button_bg"
+                    android:padding="8dp"
                     android:textColor="@color/image_border_dark_blue"
                     app:font="Itim-Regular.ttf" />
+                </android.support.v7.widget.CardView>
             </RelativeLayout>
 
         </LinearLayout>
@@ -122,21 +139,28 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="Senin Takip Etmediklerin"
+                    android:text="@string/you_not_follow"
                     android:textColor="@color/image_border_dark_blue"
                     app:font="Itim-Regular.ttf" />
 
-                <com.cihankaptan.android.whounfollowedme.view.FontButton
-                    android:id="@+id/unfollow_you"
+                <android.support.v7.widget.CardView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/you_unfollow_header"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="8dp"
-                    android:padding="8dp"
-                    android:background="@drawable/button_bg"
-                    android:textColor="@color/image_border_dark_blue"
-                    app:font="Itim-Regular.ttf" />
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="20dp">
+
+                    <com.cihankaptan.android.whounfollowedme.view.FontButton
+                        android:id="@+id/unfollow_you"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/button_bg"
+                        android:padding="8dp"
+                        android:textColor="@color/image_border_dark_blue"
+                        app:font="Itim-Regular.ttf" />
+                </android.support.v7.widget.CardView>
             </RelativeLayout>
 
             <RelativeLayout
@@ -150,22 +174,30 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="Seni Takip Etmeyenler"
+                    android:text="@string/who_not_follow_you"
                     android:textColor="@color/image_border_dark_blue"
-                    app:font="Itim-Regular.ttf"/>
+                    app:font="Itim-Regular.ttf" />
 
+                <android.support.v7.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/unfollow_you_header"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="8dp"
+                    app:cardElevation="20dp"
+                    app:cardCornerRadius="8dp">
                 <com.cihankaptan.android.whounfollowedme.view.FontButton
                     android:id="@+id/you_unfollow"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/unfollow_you_header"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginTop="8dp"
+                    android:background="@drawable/button_bg"
                     android:elevation="8dp"
                     android:padding="10dp"
-                    android:background="@drawable/button_bg"
                     android:textColor="@color/image_border_dark_blue"
                     app:font="Itim-Regular.ttf" />
+                </android.support.v7.widget.CardView>
             </RelativeLayout>
 
         </LinearLayout>

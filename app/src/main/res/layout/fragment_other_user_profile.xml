@@ -33,7 +33,7 @@
             android:layout_below="@id/profilePhoto"
             android:layout_marginTop="8dp"
             android:gravity="center"
-            android:text="Cihan Kaptan"
+            android:text=""
             android:textColor="@color/image_border_dark_blue"
             android:textSize="@dimen/text_size_large" />
 
@@ -44,7 +44,7 @@
             android:layout_below="@id/full_name"
             android:layout_marginTop="8dp"
             android:gravity="center"
-            android:text="cnkaptan"
+            android:text=""
             android:textColor="@color/image_border_dark_blue"
             android:textSize="@dimen/text_size_medium" />
 
@@ -68,7 +68,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="Takip Ettikleri"
+                    android:text="@string/follows"
                     android:textColor="@color/image_border_dark_blue"
                     android:textSize="@dimen/text_size_medium"
                     app:font="Itim-Regular.ttf" />
@@ -110,7 +110,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="Takipcileri"
+                    android:text="@string/followed_by"
                     android:textColor="@color/image_border_dark_blue"
                     android:textSize="@dimen/text_size_medium"
                     app:font="Itim-Regular.ttf" />
@@ -149,7 +149,7 @@
             android:layout_marginTop="32dp"
             android:padding="16dp"
             android:background="@drawable/button_bg"
-            android:text="Profilini Gor"/>
+            android:text="@string/see_profile"/>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/reyclerView"

@@ -104,7 +104,7 @@ public class OtherUserProfileFragment extends Fragment implements Constans {
         ButterKnife.inject(this, view);
 
         accessToken = MySharedPrefs.loadString(ACCESS_TOKEN);
-        progressDialog = ProgressDialog.show(activity, "Yukleniyor", "Bilgileri Yukleniyor");
+        progressDialog = ProgressDialog.show(activity,getResources().getString(R.string.loading), getResources().getString(R.string.information_loading));
         progressDialog.setCancelable(true);
         instagramApi.getRecentPics(user.getId(), accessToken, new Callback<MediaResponse>() {
             @Override

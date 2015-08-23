@@ -11,4 +11,15 @@
     <string name="title_activity_user_detail">UserDetailActivity</string>
     <string name="title_activity_media">MediaActivity</string>
     <string name="title_activity_profile">ProfileActivity</string>
+    <string name="see_profile">Profilini Gor</string>
+    <string name="followed_by">Takipcileri</string>
+    <string name="follows">Takip Ettikleri</string>
+    <string name="takip_ettikleri">Takip Ettiklerin</string>
+    <string name="takip_edenler">Takip Edenler</string>
+    <string name="you_not_follow">Senin Takip Etmediklerin</string>
+    <string name="who_not_follow_you">Seni Takip Etmeyenler</string>
+    <string name="loading">Yukleniyor</string>
+    <string name="information_loading">Bilgileriniz Yukleniyor</string>
+    <string name="exit">Çıkış</string>
+    <string name="internet_connection">Uygulama internet gerektirmektedir.Lütfen internete baglanınız.</string>
 </resources>

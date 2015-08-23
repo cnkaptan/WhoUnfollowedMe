@@ -78,7 +78,7 @@ public class MainActivity extends BaseActivity implements Constans {
         super.onStart();
         if (access_token != null) {
             Log.e(TAG, access_token);
-            progressDialog = ProgressDialog.show(this, "Yukleniyor", "Bilgileriniz Yukleniyor");
+            progressDialog = ProgressDialog.show(this, getResources().getString(R.string.loading),getResources().getString(R.string.information_loading));
             progressDialog.setCancelable(true);
             instagramApi.getUserInfo(access_token, new Callback<UserResponse>() {
                 private List<User> followedByUsers = new ArrayList<>();

@@ -85,14 +85,14 @@ public class ProfileActivity extends BaseActivity implements Constans{
             }
         });
 
-        addFragment(ProfileFragment.newInstance());
+        replaceFragment(ProfileFragment.newInstance());
 
         refresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (access_token != null) {
                     Log.e(TAG, access_token);
-                    progressDialog = ProgressDialog.show(ProfileActivity.this, "Yukleniyor", "Bilgileriniz Yukleniyor");
+                    progressDialog = ProgressDialog.show(ProfileActivity.this, getResources().getString(R.string.loading),getResources().getString(R.string.information_loading));
                     progressDialog.setCancelable(true);
                     instagramApi.getUserInfo(access_token, new Callback<UserResponse>() {
                         private List<User> followedByUsers = new ArrayList<>();

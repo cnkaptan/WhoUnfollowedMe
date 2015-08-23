@@ -88,7 +88,7 @@ public class SearchAdapter extends BaseAdapter implements Filterable {
             FilterResults results = new FilterResults();
             final List<User> list = SearchAdapter.this.contents;
             final ArrayList<User> nlist = new ArrayList<User>(list.size());
-            if (!constraint.equals("")){
+            if (!filterString.equals("")){
                 for (int i = 0; i < list.size(); i++) {
                     if (list.get(i).getFull_name().toLowerCase().contains(filterString) ||
                             list.get(i).getUsername().toLowerCase().contains(filterString)) {

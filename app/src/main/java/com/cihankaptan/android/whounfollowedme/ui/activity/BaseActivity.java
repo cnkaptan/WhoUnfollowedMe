@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.cihankaptan.android.whounfollowedme.InstagramApi;
+import com.cihankaptan.android.whounfollowedme.R;
 
 /**
  * Created by cnkaptan on 23/08/15.
@@ -51,10 +52,10 @@ public class BaseActivity extends AppCompatActivity {
 
         MaterialDialog.Builder builder = new MaterialDialog.Builder(this)
                 .title("Internet")
-                .content("Uygulama internet gerektirmektedir.Lütfen internete baglanınız.")
-                .positiveText("Internet")
+                .content(R.string.internet_connection)
+                .positiveText("Wi-Fi")
                 .negativeText("Mobile")
-                .neutralText("Çıkış");
+                .neutralText(R.string.exit);
         builder.callback(new MaterialDialog.ButtonCallback() {
             @Override
             public void onPositive(MaterialDialog dialog) {

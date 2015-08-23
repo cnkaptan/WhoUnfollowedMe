@@ -45,6 +45,13 @@ public class SearchActivity extends BaseActivity implements TextWatcher,
         contentListView.setAdapter(searchAdapter);
         contentListView.setOnItemClickListener(this);
         autocompleteEt.addTextChangedListener(this);
+
+        clearButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                autocompleteEt.setText("");
+            }
+        });
     }
 
 

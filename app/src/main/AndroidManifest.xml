@@ -23,19 +23,23 @@
         </activity>
         <activity
             android:name=".ui.activity.SearchActivity"
-            android:label="@string/title_activity_search" >
+            android:label="@string/title_activity_search"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".ui.activity.UserDetailActivity"
-            android:label="@string/title_activity_user_detail" >
+            android:label="@string/title_activity_user_detail"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".ui.activity.MediaActivity"
-            android:label="@string/title_activity_media" >
+            android:label="@string/title_activity_media"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".ui.activity.ProfileActivity"
-            android:label="@string/title_activity_profile" >
+            android:label="@string/title_activity_profile"
+            android:screenOrientation="portrait">
         </activity>
     </application>
 
