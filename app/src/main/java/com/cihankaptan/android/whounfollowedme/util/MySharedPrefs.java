@@ -74,5 +74,8 @@ public class MySharedPrefs {
         }
     }
 
+    public static void deleteShared(String key){
+        sharedPreferences.edit().remove(key).commit();
+    }
 
 }

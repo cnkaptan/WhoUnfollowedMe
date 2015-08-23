@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import com.cihankaptan.android.whounfollowedme.R;
 import com.cihankaptan.android.whounfollowedme.instagram.User;
-import com.cihankaptan.android.whounfollowedme.ui.activity.MainActivity;
+import com.cihankaptan.android.whounfollowedme.ui.activity.ProfileActivity;
 import com.cihankaptan.android.whounfollowedme.ui.activity.UserDetailActivity;
 import com.squareup.picasso.Picasso;
 
@@ -24,13 +24,13 @@ import java.util.ArrayList;
 public class UserListGridAdapter extends RecyclerView.Adapter<UserListGridAdapter.UserListGridHolder> {
 
 
-    private static MainActivity context;
+    private static ProfileActivity context;
     private ArrayList<User> users;
     private User user;
 
     public UserListGridAdapter(ArrayList<User> users,Activity context){
         this.users = users;
-        this.context = (MainActivity)context;
+        this.context = (ProfileActivity)context;
 
     }
 

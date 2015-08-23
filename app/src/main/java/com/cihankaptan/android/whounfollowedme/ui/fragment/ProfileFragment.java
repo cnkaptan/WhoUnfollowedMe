@@ -13,13 +13,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.cihankaptan.android.whounfollowedme.R;
 import com.cihankaptan.android.whounfollowedme.adapter.OtherUserListAdapter;
 import com.cihankaptan.android.whounfollowedme.instagram.MediaResponse;
 import com.cihankaptan.android.whounfollowedme.instagram.User;
-import com.cihankaptan.android.whounfollowedme.ui.activity.MainActivity;
+import com.cihankaptan.android.whounfollowedme.ui.activity.ProfileActivity;
 import com.cihankaptan.android.whounfollowedme.util.Constans;
 import com.cihankaptan.android.whounfollowedme.util.ListUtil;
 import com.cihankaptan.android.whounfollowedme.util.MySharedPrefs;
@@ -52,8 +53,10 @@ public class ProfileFragment extends Fragment implements Constans {
     Button unfollowYou;
     @InjectView(R.id.reyclerView)
     RecyclerView recyclerView;
+    @InjectView(R.id.scrollView)
+    ScrollView scrollView;
     private View view;
-    private MainActivity activity;
+    private ProfileActivity activity;
 
     User user;
     ArrayList<User> followsList, followedByList, differenceFollows, differenceFollowedBy;
@@ -74,7 +77,7 @@ public class ProfileFragment extends Fragment implements Constans {
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        this.activity = (MainActivity) activity;
+        this.activity = (ProfileActivity) activity;
     }
 
     @Override
@@ -93,6 +96,9 @@ public class ProfileFragment extends Fragment implements Constans {
         differenceFollowedBy = (ArrayList<User>) ListUtil.difference(followedByList, followsList);
         MySharedPrefs.saveList(UNFOLLOWED_YOU, differenceFollowedBy);
         Log.e(TAG, String.valueOf(differenceFollowedBy.size()));
+
+
+
     }
 
     @Override
@@ -109,7 +115,7 @@ public class ProfileFragment extends Fragment implements Constans {
         youUnfollow.setText(differenceFollows.size() + "");
         unfollowYou.setText(differenceFollowedBy.size() + "");
 
-        MediaResponse mediaResponse = MySharedPrefs.loadObject(MEDIA_RESPONSE,MediaResponse.class);
+        MediaResponse mediaResponse = MySharedPrefs.loadObject(MEDIA_RESPONSE, MediaResponse.class);
         adapter = new OtherUserListAdapter(mediaResponse);
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(activity, 4);
         recyclerView.setLayoutManager(layoutManager);
@@ -145,6 +151,8 @@ public class ProfileFragment extends Fragment implements Constans {
                 activity.replaceFragment(GeneralListFragment.newInstance(UNFOLLOWED_YOU));
             }
         });
+
+        scrollView.smoothScrollTo(0,0);
         return view;
     }
 

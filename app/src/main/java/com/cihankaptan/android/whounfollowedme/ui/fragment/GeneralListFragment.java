@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 import com.cihankaptan.android.whounfollowedme.R;
 import com.cihankaptan.android.whounfollowedme.adapter.UserListGridAdapter;
 import com.cihankaptan.android.whounfollowedme.instagram.User;
-import com.cihankaptan.android.whounfollowedme.ui.activity.MainActivity;
+import com.cihankaptan.android.whounfollowedme.ui.activity.ProfileActivity;
 import com.cihankaptan.android.whounfollowedme.util.MySharedPrefs;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
@@ -34,7 +34,7 @@ public class GeneralListFragment extends Fragment {
     @InjectView(R.id.reyclerView)
     RecyclerView reyclerView;
     private String mParam1;
-    private MainActivity activity;
+    private ProfileActivity activity;
     private ArrayList<User> userArrayList;
 
 
@@ -53,7 +53,7 @@ public class GeneralListFragment extends Fragment {
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        this.activity = (MainActivity)activity;
+        this.activity = (ProfileActivity)activity;
     }
 
     @Override

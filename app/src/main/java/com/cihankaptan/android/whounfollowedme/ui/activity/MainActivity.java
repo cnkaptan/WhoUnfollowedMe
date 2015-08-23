@@ -7,13 +7,10 @@ import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.util.Log;
-import android.view.View;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 
 import com.cihankaptan.android.whounfollowedme.InstagramApi;
 import com.cihankaptan.android.whounfollowedme.R;
@@ -23,7 +20,6 @@ import com.cihankaptan.android.whounfollowedme.instagram.MediaResponse;
 import com.cihankaptan.android.whounfollowedme.instagram.User;
 import com.cihankaptan.android.whounfollowedme.instagram.UserResponse;
 import com.cihankaptan.android.whounfollowedme.ui.fragment.InstagramFragment;
-import com.cihankaptan.android.whounfollowedme.ui.fragment.ProfileFragment;
 import com.cihankaptan.android.whounfollowedme.util.Constans;
 import com.cihankaptan.android.whounfollowedme.util.ListUtil;
 import com.cihankaptan.android.whounfollowedme.util.MySharedPrefs;
@@ -40,30 +36,30 @@ import retrofit.RetrofitError;
 import retrofit.client.Response;
 
 
-public class MainActivity extends AppCompatActivity implements Constans {
+public class MainActivity extends BaseActivity implements Constans {
     private static final String TAG = MainActivity.class.getSimpleName();
+    public InstagramApi instagramApi;
     @InjectView(R.id.title)
     FontTextView title;
-    @InjectView(R.id.search)
-    ImageView search;
     @InjectView(R.id.frame)
     FrameLayout frame;
     private FragmentManager manager;
     private FragmentTransaction transaction;
-    public InstagramApi instagramApi;
     private ProgressDialog progressDialog;
     private String access_token;
     private Toolbar toolbar;
     private ArrayList<User> allUsers;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.inject(this);
-        setRetrofitAdapter();
 
+        setRetrofitAdapter();
         manager = getFragmentManager();
+//        MySharedPrefs.deleteShared(ACCESS_TOKEN);
         access_token = MySharedPrefs.loadString(ACCESS_TOKEN);
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -74,15 +70,12 @@ public class MainActivity extends AppCompatActivity implements Constans {
         setTitle("WHO UNFOLLOWED ME");
         progressDialog = new ProgressDialog(this);
 
-        search.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this , SearchActivity.class);
-                intent.putParcelableArrayListExtra("users",allUsers);
-                startActivity(intent);
-            }
-        });
 
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
         if (access_token != null) {
             Log.e(TAG, access_token);
             progressDialog = ProgressDialog.show(this, "Yukleniyor", "Bilgileriniz Yukleniyor");
@@ -98,7 +91,7 @@ public class MainActivity extends AppCompatActivity implements Constans {
                         public void run() {
                             FollowsResponse followsResponse;
                             MediaResponse mediaResponse = instagramApi.getRecentPics(access_token);
-                            MySharedPrefs.saveObject(MEDIA_RESPONSE,mediaResponse);
+                            MySharedPrefs.saveObject(MEDIA_RESPONSE, mediaResponse);
                             String cursor = null;
                             do {
                                 followsResponse = instagramApi.getFollowedBy(access_token, cursor);
@@ -118,31 +111,31 @@ public class MainActivity extends AppCompatActivity implements Constans {
                             MySharedPrefs.saveObject(USER, userResponse.getData());
                             MySharedPrefs.saveList(FOLLOWEDBY_LIST, followedByUsers);
                             MySharedPrefs.saveList(FOLLOWS_LIST, followsUsers);
+                            MySharedPrefs.saveList(ALL_USERS, allUsers);
+
                             progressDialog.dismiss();
                             Log.e(TAG, FOLLOWEDBY_LIST + " = " + MySharedPrefs.loadList(FOLLOWEDBY_LIST, User.class).size());
                             Log.e(TAG, FOLLOWS_LIST + " = " + MySharedPrefs.loadList(FOLLOWS_LIST, User.class).size());
 
 
-                            replaceFragment(ProfileFragment.newInstance());
+                            startActivity(new Intent(MainActivity.this, ProfileActivity.class));
+                            finish();
                         }
                     }).start();
                 }
 
                 @Override
                 public void failure(RetrofitError error) {
+                    progressDialog.cancel();
+                    if (!isNetworkAvailable()) {
 
+                        showMaterialDialogNetwork();
+                    }
                 }
             });
         } else {
-            Log.e(TAG, "Access token 0");
             replaceFragment(InstagramFragment.newInstance());
         }
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-
     }
 
     @SuppressLint("CommitTransaction")
@@ -170,20 +163,11 @@ public class MainActivity extends AppCompatActivity implements Constans {
         instagramApi = restAdapter.create(InstagramApi.class);
     }
 
-    @Override
-    public void onBackPressed() {
 
-        if (manager.getBackStackEntryCount() > 1) {
-            Log.e(TAG, manager.getBackStackEntryCount() + "");
-            manager.popBackStack();
-        } else {
-            super.onBackPressed();
-
-        }
-    }
 
     public void setTitle(String str) {
         title.setText((Html.fromHtml("<font color=\"#2A2D34\">" + str + "</font>")));
     }
+
 
 }

@@ -3,6 +3,7 @@
     package="com.cihankaptan.android.whounfollowedme" >
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:name=".util.InstagramApp"
@@ -31,6 +32,10 @@
         <activity
             android:name=".ui.activity.MediaActivity"
             android:label="@string/title_activity_media" >
+        </activity>
+        <activity
+            android:name=".ui.activity.ProfileActivity"
+            android:label="@string/title_activity_profile" >
         </activity>
     </application>
 

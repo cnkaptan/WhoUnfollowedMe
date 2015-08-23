@@ -11,7 +11,7 @@ public interface Constans {
     String USER = "USER";
     String ACCESS_TOKEN = "ACCESS_TOKEN";
     String MEDIA_RESPONSE = "MEDIA_RESPONSE";
-
+    String ALL_USERS = "ALL_USERS";
 
     int FLAG_FOLLOWEDBY = 200;
     int FLAG_FOLLOWS = 201;

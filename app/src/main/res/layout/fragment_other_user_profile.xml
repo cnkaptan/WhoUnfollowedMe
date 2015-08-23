@@ -11,7 +11,6 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/light_grey"
         android:orientation="vertical">
 
         <net.grobas.view.PolygonImageView
@@ -148,7 +147,9 @@
             android:layout_below="@id/middle_layout"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="32dp"
-            android:text="Instagram Profilini Gor"/>
+            android:padding="16dp"
+            android:background="@drawable/button_bg"
+            android:text="Profilini Gor"/>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/reyclerView"

@@ -27,6 +27,23 @@
                 android:textColor="@color/image_border_dark_blue"
                 android:textSize="@dimen/text_size_large" />
 
+            <ImageView
+                android:id="@+id/search"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="16dp"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_search" />
+
+
+            <ImageView
+                android:id="@+id/refresh"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@id/search"
+                android:src="@drawable/ic_refresh"
+                android:layout_marginRight="16dp"/>
         </RelativeLayout>
 
     </android.support.v7.widget.Toolbar>

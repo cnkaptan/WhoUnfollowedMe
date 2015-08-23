@@ -2,7 +2,6 @@ package com.cihankaptan.android.whounfollowedme.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -20,7 +19,7 @@ import java.util.ArrayList;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
-public class SearchActivity extends AppCompatActivity implements TextWatcher,
+public class SearchActivity extends BaseActivity implements TextWatcher,
         AdapterView.OnItemClickListener{
 
     private static final String TAG = SearchActivity.class.getSimpleName();

@@ -281,9 +281,19 @@
     <color name="white">#FFFFFF</color>
 
     <!-- Colors for the app -->
-    <color name="primary">@color/indigo_500</color>
-    <color name="primary_dark">#388E3C</color>
-    <color name="accent">@color/pink_A200</color>
+    <!--<color name="primary">@color/indigo_500</color>-->
+    <!--<color name="primary_dark">#388E3C</color>-->
+    <!--<color name="accent">@color/pink_A200</color>-->
+
+    <color name="blue">#303F9F</color>
+
+
+    <color name="accent_color">@color/blue</color>
+    <color name="colorPrimary">@color/blue</color>
+    <color name="colorPrimaryDark">@color/blue</color>
+    <color name="statusBarColor">@color/blue</color>
+    <color name="navigationBarColor">@android:color/black</color>
+    <color name="drawerArrowColor">@android:color/white</color>
     <color name="light_grey">#9e9e9e</color>
     <color name="dark_grey">#616161</color>
     <color name="app_green">#82B230</color>

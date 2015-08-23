@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.ProgressDialog;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -23,9 +24,11 @@ import com.cihankaptan.android.whounfollowedme.instagram.FollowsResponse;
 import com.cihankaptan.android.whounfollowedme.instagram.Instagram;
 import com.cihankaptan.android.whounfollowedme.instagram.User;
 import com.cihankaptan.android.whounfollowedme.instagram.UserResponse;
+import com.cihankaptan.android.whounfollowedme.ui.activity.MainActivity;
 import com.cihankaptan.android.whounfollowedme.util.Constans;
 import com.cihankaptan.android.whounfollowedme.util.InstagramApp;
 import com.cihankaptan.android.whounfollowedme.util.MySharedPrefs;
+import com.pnikosis.materialishprogress.ProgressWheel;
 
 import java.util.ArrayList;
 
@@ -48,8 +51,9 @@ public class InstagramFragment extends Fragment implements Constans{
     private ProgressDialog progressDialog;
     private InstagramApi instagramApi;
     private ArrayList<User> followedByUsers,followsUsers;
-    private Activity activity;
+    private MainActivity activity;
     private InstagramApp app;
+    private ProgressWheel progressWheel;
 
     public static InstagramFragment newInstance() {
         InstagramFragment fragment = new InstagramFragment();
@@ -65,7 +69,7 @@ public class InstagramFragment extends Fragment implements Constans{
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        this.activity = activity;
+        this.activity = (MainActivity)activity;
         app = (InstagramApp) activity.getApplication();
     }
 
@@ -77,6 +81,11 @@ public class InstagramFragment extends Fragment implements Constans{
         setRetrofitAdapter();
         followedByUsers = new ArrayList<User>();
         followsUsers = new ArrayList<User>();
+
+        if(!activity.isNetworkAvailable()){
+            getFragmentManager().popBackStack();
+            activity.showMaterialDialogNetwork();
+        }
     }
 
     @SuppressLint("SetJavaScriptEnabled")
@@ -89,6 +98,8 @@ public class InstagramFragment extends Fragment implements Constans{
         CookieManager cookieManager = CookieManager.getInstance();
         cookieManager.removeAllCookie();
 
+        progressWheel = (ProgressWheel)view.findViewById(R.id.progress_wheel);
+
 
         WebView webView = (WebView) view.findViewById(R.id.webView);
         webView.setVerticalScrollBarEnabled(false);
@@ -96,6 +107,7 @@ public class InstagramFragment extends Fragment implements Constans{
         webView.setWebViewClient(new AuthWebViewClient());
         webView.getSettings().setJavaScriptEnabled(true);
         webView.loadUrl(Instagram.getAuthurl());
+        Log.e(TAG,Instagram.getAuthurl());
         WebSettings ws = webView.getSettings();
         ws.setSaveFormData(false);
         ws.setSavePassword(false);
@@ -110,13 +122,15 @@ public class InstagramFragment extends Fragment implements Constans{
     private class AuthWebViewClient extends WebViewClient{
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
+
             if (url.startsWith(Instagram.CALLBACKURL)) {
                 Log.e(TAG,url);
+                progressDialog = ProgressDialog.show(activity,""," Yukleniyor");
+                progressDialog.setCancelable(true);
                 String parts[] = url.split("=");
                 final String access_token = parts[1];  //This is your request token.
-                MySharedPrefs.saveString(ACCESS_TOKEN,access_token);
-                progressDialog = ProgressDialog.show(activity,"Yukleniyor","Bilgileriniz Yukleniyor");
-                progressDialog.setCancelable(true);
+                MySharedPrefs.saveString(ACCESS_TOKEN, access_token);
+
                 instagramApi.getUserInfo(access_token, new Callback<UserResponse>() {
 
                     @Override
@@ -161,6 +175,19 @@ public class InstagramFragment extends Fragment implements Constans{
                 return true;
             }
             return false;
+        }
+
+        @Override
+        public void onPageStarted(WebView view, String url, Bitmap favicon) {
+            super.onPageStarted(view, url, favicon);
+            progressWheel.setVisibility(View.VISIBLE);
+        }
+
+        @Override
+        public void onPageFinished(WebView view, String url) {
+            super.onPageFinished(view, url);
+            progressWheel.setVisibility(View.GONE);
+
         }
     }
 

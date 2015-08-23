@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 import com.cihankaptan.android.whounfollowedme.R;
 import com.cihankaptan.android.whounfollowedme.adapter.UserListGridAdapter;
 import com.cihankaptan.android.whounfollowedme.instagram.User;
-import com.cihankaptan.android.whounfollowedme.ui.activity.MainActivity;
+import com.cihankaptan.android.whounfollowedme.ui.activity.ProfileActivity;
 import com.cihankaptan.android.whounfollowedme.util.Constans;
 import com.cihankaptan.android.whounfollowedme.util.MySharedPrefs;
 import com.google.gson.GsonBuilder;
@@ -30,7 +30,7 @@ public class FollowedByFragment extends Fragment implements Constans{
     @InjectView(R.id.reyclerView)
     RecyclerView reyclerView;
     private View view;
-    private MainActivity activity;
+    private ProfileActivity activity;
     private ArrayList<User> followedByList;
 
     public static FollowedByFragment newInstance() {
@@ -49,7 +49,7 @@ public class FollowedByFragment extends Fragment implements Constans{
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        this.activity = (MainActivity) activity;
+        this.activity = (ProfileActivity) activity;
     }
 
     @Override
