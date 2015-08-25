@@ -67,7 +67,7 @@ public class ProfileActivity extends BaseActivity implements Constans{
         manager = getFragmentManager();
 //        MySharedPrefs.deleteShared(ACCESS_TOKEN);
         access_token = MySharedPrefs.loadString(ACCESS_TOKEN);
-
+        allUsers = getIntent().getParcelableArrayListExtra(ALL_USERS);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -78,9 +78,8 @@ public class ProfileActivity extends BaseActivity implements Constans{
         search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                allUsers = (ArrayList<User>) MySharedPrefs.loadList(ALL_USERS, User.class);
                 Intent intent = new Intent(ProfileActivity.this, SearchActivity.class);
-                intent.putParcelableArrayListExtra("users", allUsers);
+                intent.putParcelableArrayListExtra(ALL_USERS,allUsers);
                 startActivity(intent);
             }
         });

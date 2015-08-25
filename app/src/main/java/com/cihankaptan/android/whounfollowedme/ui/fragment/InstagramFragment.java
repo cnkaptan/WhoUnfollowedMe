@@ -4,8 +4,8 @@ package com.cihankaptan.android.whounfollowedme.ui.fragment;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Fragment;
-import android.app.FragmentManager;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
@@ -25,8 +25,10 @@ import com.cihankaptan.android.whounfollowedme.instagram.Instagram;
 import com.cihankaptan.android.whounfollowedme.instagram.User;
 import com.cihankaptan.android.whounfollowedme.instagram.UserResponse;
 import com.cihankaptan.android.whounfollowedme.ui.activity.MainActivity;
+import com.cihankaptan.android.whounfollowedme.ui.activity.ProfileActivity;
 import com.cihankaptan.android.whounfollowedme.util.Constans;
 import com.cihankaptan.android.whounfollowedme.util.InstagramApp;
+import com.cihankaptan.android.whounfollowedme.util.ListUtil;
 import com.cihankaptan.android.whounfollowedme.util.MySharedPrefs;
 import com.pnikosis.materialishprogress.ProgressWheel;
 
@@ -153,6 +155,7 @@ public class InstagramFragment extends Fragment implements Constans{
                         }while (followsResponse.getPagination().getNext_cursor() != null);
 
 
+                        ArrayList<User >allUsers = (ArrayList<User>) ListUtil.union(followsUsers, followedByUsers);
                         MySharedPrefs.saveObject(USER, userResponse.getData());
                         MySharedPrefs.saveList(FOLLOWEDBY_LIST, followedByUsers);
                         MySharedPrefs.saveList(FOLLOWS_LIST, followsUsers);
@@ -160,8 +163,10 @@ public class InstagramFragment extends Fragment implements Constans{
                         Log.e(TAG, FOLLOWEDBY_LIST + " = " + MySharedPrefs.loadList(FOLLOWEDBY_LIST, User.class).size());
                         Log.e(TAG,FOLLOWS_LIST+" = "+MySharedPrefs.loadList(FOLLOWS_LIST,User.class).size());
 
-                        FragmentManager fragmentManager = getFragmentManager();
-                        fragmentManager.beginTransaction().replace(R.id.frame, ProfileFragment.newInstance()).commit();
+                        Intent intent = new Intent(getActivity(), ProfileActivity.class);
+                        intent.putParcelableArrayListExtra(ALL_USERS,allUsers);
+                        startActivity(intent);
+                        getActivity().finish();
                     }
                 }).start();
                     }

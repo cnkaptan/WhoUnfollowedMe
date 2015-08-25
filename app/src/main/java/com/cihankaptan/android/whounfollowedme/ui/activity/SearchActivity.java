@@ -13,14 +13,15 @@ import android.widget.ListView;
 import com.cihankaptan.android.whounfollowedme.R;
 import com.cihankaptan.android.whounfollowedme.adapter.SearchAdapter;
 import com.cihankaptan.android.whounfollowedme.instagram.User;
+import com.cihankaptan.android.whounfollowedme.util.Constans;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
 public class SearchActivity extends BaseActivity implements TextWatcher,
-        AdapterView.OnItemClickListener{
+        AdapterView.OnItemClickListener ,Constans{
 
     private static final String TAG = SearchActivity.class.getSimpleName();
     @InjectView(R.id.autocomplete_et)
@@ -29,7 +30,7 @@ public class SearchActivity extends BaseActivity implements TextWatcher,
     ImageView clearButton;
     @InjectView(R.id.contentListView)
     ListView contentListView;
-    private ArrayList<User> users;
+    private List<User> users;
     private SearchAdapter searchAdapter;
 
     @Override
@@ -38,7 +39,8 @@ public class SearchActivity extends BaseActivity implements TextWatcher,
         setContentView(R.layout.activity_search);
         ButterKnife.inject(this);
 
-        users = getIntent().getParcelableArrayListExtra("users");
+
+        users = getIntent().getParcelableArrayListExtra(ALL_USERS);
 
         assert users != null;
         searchAdapter = new SearchAdapter(users);

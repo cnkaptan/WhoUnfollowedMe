@@ -26,6 +26,7 @@ import butterknife.InjectView;
  */
 public class SearchAdapter extends BaseAdapter implements Filterable {
 
+
     private static final String TAG = SearchAdapter.class.getSimpleName();
     private List<User> contents;
     private String str = null;
@@ -33,28 +34,36 @@ public class SearchAdapter extends BaseAdapter implements Filterable {
     private ContentFilter contentFilter = new ContentFilter();
 
 
+
+
     public SearchAdapter(List<User> contents) {
 //        Log.e(TAG, "Search Adapter constructor");
         this.contents = contents;
         filterContents = new ArrayList<User>();
 
+
     }
+
 
     @Override
     public int getCount() {
         return filterContents.size();
     }
 
+
     @Override
     public User getItem(int position) {
 
+
         return filterContents.get(position);
     }
+
 
     @Override
     public long getItemId(int position) {
         return position;
     }
+
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -67,17 +76,23 @@ public class SearchAdapter extends BaseAdapter implements Filterable {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
+
         viewHolder.bind(getItem(position),parent.getContext());
+
 
         return convertView;
     }
+
 
     @Override
     public Filter getFilter() {
         return contentFilter;
     }
 
+
     private class ContentFilter extends Filter {
+
+
 
 
         @Override
@@ -85,10 +100,11 @@ public class SearchAdapter extends BaseAdapter implements Filterable {
 //            Log.e(TAG, constraint.toString());
             String filterString = constraint.toString().toLowerCase();
 
+
             FilterResults results = new FilterResults();
             final List<User> list = SearchAdapter.this.contents;
             final ArrayList<User> nlist = new ArrayList<User>(list.size());
-            if (!filterString.equals("")){
+            if (!constraint.equals("")){
                 for (int i = 0; i < list.size(); i++) {
                     if (list.get(i).getFull_name().toLowerCase().contains(filterString) ||
                             list.get(i).getUsername().toLowerCase().contains(filterString)) {
@@ -99,12 +115,16 @@ public class SearchAdapter extends BaseAdapter implements Filterable {
                 nlist.clear();
             }
 
+
             results.values = nlist;
             results.count = nlist.size();
 
 
+
+
             return results;
         }
+
 
         @Override
         protected void publishResults(CharSequence constraint, FilterResults results) {
@@ -114,12 +134,15 @@ public class SearchAdapter extends BaseAdapter implements Filterable {
     }
 
 
+
+
     /**
      * This class contains all butterknife-injected Views & Layouts from layout file 'searchadapter_item_layout.xml'
      * for easy to all layout elements.
      *
      * @author ButterKnifeZelezny, plugin for Android Studio by Avast Developers (http://github.com/avast)
      */
+
 
     static class ViewHolder {
         @InjectView(R.id.profilePhoto)
@@ -129,9 +152,11 @@ public class SearchAdapter extends BaseAdapter implements Filterable {
         @InjectView(R.id.user_name)
         FontTextView userName;
 
+
         ViewHolder(View view) {
             ButterKnife.inject(this, view);
         }
+
 
         public void bind(User user,Context context) {
             fullName.setText(user.getFull_name());
@@ -139,5 +164,6 @@ public class SearchAdapter extends BaseAdapter implements Filterable {
             Picasso.with(context).load(user.getProfile_picture()).into(profilePhoto);
         }
     }
+
 
 }

@@ -111,14 +111,15 @@ public class MainActivity extends BaseActivity implements Constans {
                             MySharedPrefs.saveObject(USER, userResponse.getData());
                             MySharedPrefs.saveList(FOLLOWEDBY_LIST, followedByUsers);
                             MySharedPrefs.saveList(FOLLOWS_LIST, followsUsers);
-                            MySharedPrefs.saveList(ALL_USERS, allUsers);
 
                             progressDialog.dismiss();
                             Log.e(TAG, FOLLOWEDBY_LIST + " = " + MySharedPrefs.loadList(FOLLOWEDBY_LIST, User.class).size());
                             Log.e(TAG, FOLLOWS_LIST + " = " + MySharedPrefs.loadList(FOLLOWS_LIST, User.class).size());
 
 
-                            startActivity(new Intent(MainActivity.this, ProfileActivity.class));
+                            Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
+                            intent.putParcelableArrayListExtra(ALL_USERS,allUsers);
+                            startActivity(intent);
                             finish();
                         }
                     }).start();
