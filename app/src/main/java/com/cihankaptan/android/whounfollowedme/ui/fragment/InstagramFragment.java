@@ -22,6 +22,7 @@ import com.cihankaptan.android.whounfollowedme.InstagramApi;
 import com.cihankaptan.android.whounfollowedme.R;
 import com.cihankaptan.android.whounfollowedme.instagram.FollowsResponse;
 import com.cihankaptan.android.whounfollowedme.instagram.Instagram;
+import com.cihankaptan.android.whounfollowedme.instagram.MediaResponse;
 import com.cihankaptan.android.whounfollowedme.instagram.User;
 import com.cihankaptan.android.whounfollowedme.instagram.UserResponse;
 import com.cihankaptan.android.whounfollowedme.ui.activity.MainActivity;
@@ -142,6 +143,8 @@ public class InstagramFragment extends Fragment implements Constans{
                     public void run() {
                         FollowsResponse followsResponse;
                         String cursor = null;
+                        MediaResponse mediaResponse = instagramApi.getRecentPics(access_token);
+                        MySharedPrefs.saveObject(MEDIA_RESPONSE, mediaResponse);
                         do{
                             followsResponse = instagramApi.getFollowedBy(access_token,cursor);
                             cursor = followsResponse.getPagination().getNext_cursor();
@@ -161,7 +164,7 @@ public class InstagramFragment extends Fragment implements Constans{
                         MySharedPrefs.saveList(FOLLOWS_LIST, followsUsers);
                         progressDialog.dismiss();
                         Log.e(TAG, FOLLOWEDBY_LIST + " = " + MySharedPrefs.loadList(FOLLOWEDBY_LIST, User.class).size());
-                        Log.e(TAG,FOLLOWS_LIST+" = "+MySharedPrefs.loadList(FOLLOWS_LIST,User.class).size());
+                        Log.e(TAG, FOLLOWS_LIST + " = " + MySharedPrefs.loadList(FOLLOWS_LIST, User.class).size());
 
                         Intent intent = new Intent(getActivity(), ProfileActivity.class);
                         intent.putParcelableArrayListExtra(ALL_USERS,allUsers);

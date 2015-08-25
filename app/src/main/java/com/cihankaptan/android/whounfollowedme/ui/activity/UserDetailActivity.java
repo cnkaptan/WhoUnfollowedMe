@@ -37,4 +37,17 @@ public class UserDetailActivity extends BaseActivity {
                 .addToBackStack(null)
                 .commit();
     }
+
+    @Override
+    public void onBackPressed() {
+
+        if (fragmentManager.getBackStackEntryCount() > 1) {
+            Log.e(TAG, fragmentManager.getBackStackEntryCount() + "");
+            fragmentManager.popBackStack();
+        } else {
+            super.onBackPressed();
+
+        }
+    }
+
 }

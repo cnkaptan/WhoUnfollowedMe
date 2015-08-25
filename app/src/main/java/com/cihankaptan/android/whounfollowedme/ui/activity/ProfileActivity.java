@@ -16,17 +16,21 @@ import android.widget.ImageView;
 
 import com.cihankaptan.android.whounfollowedme.InstagramApi;
 import com.cihankaptan.android.whounfollowedme.R;
+import com.cihankaptan.android.whounfollowedme.eventbus.EventBusAdapter;
+import com.cihankaptan.android.whounfollowedme.eventbus.MedieEvent;
 import com.cihankaptan.android.whounfollowedme.instagram.FollowsResponse;
 import com.cihankaptan.android.whounfollowedme.instagram.Instagram;
 import com.cihankaptan.android.whounfollowedme.instagram.MediaResponse;
 import com.cihankaptan.android.whounfollowedme.instagram.User;
 import com.cihankaptan.android.whounfollowedme.instagram.UserResponse;
+import com.cihankaptan.android.whounfollowedme.ui.fragment.ImageShowFragment;
 import com.cihankaptan.android.whounfollowedme.ui.fragment.InstagramFragment;
 import com.cihankaptan.android.whounfollowedme.ui.fragment.ProfileFragment;
 import com.cihankaptan.android.whounfollowedme.util.Constans;
 import com.cihankaptan.android.whounfollowedme.util.ListUtil;
 import com.cihankaptan.android.whounfollowedme.util.MySharedPrefs;
 import com.cihankaptan.android.whounfollowedme.view.FontTextView;
+import com.squareup.otto.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -74,7 +78,7 @@ public class ProfileActivity extends BaseActivity implements Constans{
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-
+        EventBusAdapter.register(this);
         search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -152,7 +156,11 @@ public class ProfileActivity extends BaseActivity implements Constans{
         });
     }
 
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBusAdapter.unregister(this);
+    }
 
     @SuppressLint("CommitTransaction")
     public void addFragment(Fragment fragment) {
@@ -193,6 +201,11 @@ public class ProfileActivity extends BaseActivity implements Constans{
                 .build();
 
         instagramApi = restAdapter.create(InstagramApi.class);
+    }
+
+    @Subscribe
+    public void getMediaEvent(MedieEvent medieEvent){
+        addFragment(ImageShowFragment.newInstance(medieEvent.getMedia()));
     }
 
 

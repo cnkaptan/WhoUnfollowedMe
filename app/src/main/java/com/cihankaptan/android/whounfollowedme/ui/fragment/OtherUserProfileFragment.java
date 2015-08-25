@@ -12,6 +12,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,10 +23,13 @@ import android.widget.ScrollView;
 import com.cihankaptan.android.whounfollowedme.InstagramApi;
 import com.cihankaptan.android.whounfollowedme.R;
 import com.cihankaptan.android.whounfollowedme.adapter.OtherUserListAdapter;
+import com.cihankaptan.android.whounfollowedme.eventbus.EventBusAdapter;
 import com.cihankaptan.android.whounfollowedme.instagram.Instagram;
+import com.cihankaptan.android.whounfollowedme.instagram.Media;
 import com.cihankaptan.android.whounfollowedme.instagram.MediaResponse;
 import com.cihankaptan.android.whounfollowedme.instagram.User;
 import com.cihankaptan.android.whounfollowedme.instagram.UserResponse;
+import com.cihankaptan.android.whounfollowedme.ui.activity.UserDetailActivity;
 import com.cihankaptan.android.whounfollowedme.util.Constans;
 import com.cihankaptan.android.whounfollowedme.util.MySharedPrefs;
 import com.cihankaptan.android.whounfollowedme.view.FontTextView;
@@ -43,9 +47,9 @@ import retrofit.client.Response;
  * Use the {@link OtherUserProfileFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class OtherUserProfileFragment extends Fragment implements Constans {
+public class OtherUserProfileFragment extends Fragment implements Constans , OtherUserListAdapter.SendMediaListener{
     private static final String TAG = OtherUserProfileFragment.class.getSimpleName();
-    Activity activity;
+    UserDetailActivity activity;
     User user;
     @InjectView(R.id.profilePhoto)
     ImageView profilePhoto;
@@ -84,7 +88,7 @@ public class OtherUserProfileFragment extends Fragment implements Constans {
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        this.activity = activity;
+        this.activity = (UserDetailActivity)activity;
     }
 
     @Override
@@ -117,8 +121,8 @@ public class OtherUserProfileFragment extends Fragment implements Constans {
                             @Override
                             public void run() {
                                 progressDialog.cancel();
-                                follows.setText(userResponse.getData().getCounts().getFollows()+"");
-                                followedBy.setText(userResponse.getData().getCounts().getFollowed_by()+"");
+                                follows.setText(userResponse.getData().getCounts().getFollows() + "");
+                                followedBy.setText(userResponse.getData().getCounts().getFollowed_by() + "");
                             }
                         });
                     }
@@ -130,6 +134,7 @@ public class OtherUserProfileFragment extends Fragment implements Constans {
                 });
 
                 adapter = new OtherUserListAdapter(mediaResponse);
+                adapter.setSendMediaListener(OtherUserProfileFragment.this);
                 RecyclerView.LayoutManager layoutManager = new GridLayoutManager(activity, 4);
                 recyclerView.setLayoutManager(layoutManager);
                 recyclerView.addItemDecoration(new ItemDecorationAlbumColumns(8, 4));
@@ -177,6 +182,7 @@ public class OtherUserProfileFragment extends Fragment implements Constans {
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.reset(this);
+        EventBusAdapter.unregister(this);
     }
 
     public void setRetrofitAdapter() {
@@ -186,6 +192,12 @@ public class OtherUserProfileFragment extends Fragment implements Constans {
                 .build();
 
         instagramApi = restAdapter.create(InstagramApi.class);
+    }
+
+    @Override
+    public void sendMedia(Media media) {
+        Log.e(TAG,media.getImages().getThumbnail().getUrl());
+        activity.addFragment(ImageShowFragment.newInstance(media));
     }
 
     public class ItemDecorationAlbumColumns extends RecyclerView.ItemDecoration {
@@ -238,5 +250,6 @@ public class OtherUserProfileFragment extends Fragment implements Constans {
             outRect.bottom = 0;
         }
     }
+
 
 }

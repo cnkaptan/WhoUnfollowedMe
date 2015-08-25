@@ -18,12 +18,14 @@ import android.widget.TextView;
 
 import com.cihankaptan.android.whounfollowedme.R;
 import com.cihankaptan.android.whounfollowedme.adapter.OtherUserListAdapter;
+import com.cihankaptan.android.whounfollowedme.eventbus.MedieEvent;
 import com.cihankaptan.android.whounfollowedme.instagram.MediaResponse;
 import com.cihankaptan.android.whounfollowedme.instagram.User;
 import com.cihankaptan.android.whounfollowedme.ui.activity.ProfileActivity;
 import com.cihankaptan.android.whounfollowedme.util.Constans;
 import com.cihankaptan.android.whounfollowedme.util.ListUtil;
 import com.cihankaptan.android.whounfollowedme.util.MySharedPrefs;
+import com.squareup.otto.Subscribe;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -212,5 +214,17 @@ public class ProfileFragment extends Fragment implements Constans {
             }
             outRect.bottom = 0;
         }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+
+    }
+
+    @Subscribe
+    public void getMediaEvent(MedieEvent medieEvent){
+        Log.e(TAG,medieEvent.getMedia().getImages().getThumbnail().getUrl());
+
     }
 }

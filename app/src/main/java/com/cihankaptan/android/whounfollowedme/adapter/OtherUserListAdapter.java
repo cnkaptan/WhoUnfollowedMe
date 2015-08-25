@@ -18,6 +18,7 @@ import com.squareup.picasso.Picasso;
 public class OtherUserListAdapter extends RecyclerView.Adapter<OtherUserListAdapter.OtherUserViewHolder> {
 
     private MediaResponse mediaResponse;
+    private SendMediaListener sendMediaListener;
 
     public OtherUserListAdapter(MediaResponse mediaResponse){
         this.mediaResponse = mediaResponse;
@@ -31,8 +32,14 @@ public class OtherUserListAdapter extends RecyclerView.Adapter<OtherUserListAdap
     }
 
     @Override
-    public void onBindViewHolder(OtherUserViewHolder holder, int position) {
+    public void onBindViewHolder(OtherUserViewHolder holder, final int position) {
         holder.bindView(mediaResponse.getMedias().get(position));
+        holder.imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sendMediaListener.sendMedia(mediaResponse.getMedias().get(position));
+            }
+        });
     }
 
     @Override
@@ -50,8 +57,19 @@ public class OtherUserListAdapter extends RecyclerView.Adapter<OtherUserListAdap
             this.context = context;
         }
 
-        public void bindView(Media media){
+        public void bindView(final Media media){
             Picasso.with(context).load(media.getImages().getStandart_resulation().getUrl()).into(imageView);
+
         }
     }
+
+
+    public interface SendMediaListener{
+        void sendMedia(Media media);
+    }
+
+    public void setSendMediaListener(SendMediaListener sendMediaListener){
+        this.sendMediaListener = sendMediaListener;
+    }
+
 }
